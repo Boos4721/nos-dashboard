@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { mockChainSnapshot } from "@/lib/mockChainSnapshot";
+import { createMockChainSnapshot } from "@/lib/mockChainSnapshot";
 
 export interface ChainData {
   blockNumber: number;
@@ -41,27 +41,29 @@ const MAX_ACCUMULATED_TXS = 20;
 const IS_GITHUB_PAGES = process.env.NEXT_PUBLIC_IS_GITHUB_PAGES === "true";
 
 function buildMockChainData(): ChainData {
+  const snapshot = createMockChainSnapshot();
+
   return {
-    blockNumber: mockChainSnapshot.blockNumber,
-    blockNumberHex: `0x${mockChainSnapshot.blockNumber.toString(16)}`,
-    blockHash: mockChainSnapshot.rawBlockHash,
+    blockNumber: snapshot.blockNumber,
+    blockNumberHex: `0x${snapshot.blockNumber.toString(16)}`,
+    blockHash: snapshot.rawBlockHash,
     parentHash: "0x2f7d71efbbbc3f84d5a10a0bf2f9ac7f31c5fd97e280dd7d8ed4f1d4b6839b77",
-    miner: mockChainSnapshot.rawMiner,
-    timestamp: mockChainSnapshot.timestamp,
-    gasLimit: mockChainSnapshot.gasLimit,
-    gasUsed: mockChainSnapshot.gasUsed,
-    gasPriceGwei: mockChainSnapshot.gasPriceGwei,
-    chainId: mockChainSnapshot.chainId,
-    txCount: mockChainSnapshot.txCount,
-    transactions: mockChainSnapshot.transactions.map((tx) => ({
+    miner: snapshot.rawMiner,
+    timestamp: snapshot.timestamp,
+    gasLimit: snapshot.gasLimit,
+    gasUsed: snapshot.gasUsed,
+    gasPriceGwei: snapshot.gasPriceGwei,
+    chainId: snapshot.chainId,
+    txCount: snapshot.txCount,
+    transactions: snapshot.transactions.map((tx) => ({
       hash: tx.hash,
       from: tx.from,
       to: tx.to,
       value: tx.value,
       status: tx.status,
     })),
-    rawBlockHash: mockChainSnapshot.rawBlockHash,
-    rawMiner: mockChainSnapshot.rawMiner,
+    rawBlockHash: snapshot.rawBlockHash,
+    rawMiner: snapshot.rawMiner,
   };
 }
 
@@ -93,8 +95,8 @@ export function useChainData(pollIntervalMs = 15000): UseChainDataReturn {
       try {
         if (IS_GITHUB_PAGES) {
           const mockData = buildMockChainData();
-          const mergedTxs = mergeTransactions(mockData.transactions, mockData.blockNumber);
-          setData({ ...mockData, transactions: mergedTxs });
+          accumulatedTxsRef.current = mockData.transactions;
+          setData(mockData);
           setError(null);
           setLastUpdated(Date.now());
           return;
