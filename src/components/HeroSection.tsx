@@ -11,10 +11,12 @@ export function HeroSection({ locale }: { locale: Locale }) {
   const telemetryDemo = useTelemetryDemoState();
   const systemActiveLabel = locale === "zh" ? "系统已激活" : "SYSTEM_ACTIVE";
   const uptimeLabel = locale === "zh" ? "可用率" : "UPTIME";
+  const activeNodeLabel = locale === "zh" ? "当前节点" : "ACTIVE_HUB";
+  const blockHeightLabel = locale === "zh" ? "区块高度" : "BLOCK_HEIGHT";
   const heroStats = [
     { label: locale === "zh" ? "算力" : "HASHRATE", value: telemetryDemo.hashrate },
-    { label: locale === "zh" ? "节点数" : "NODES", value: String(telemetryDemo.totalNodes) },
-    { label: locale === "zh" ? "区域" : "REGIONS", value: String(telemetryDemo.activeRegions) },
+    { label: activeNodeLabel, value: telemetryDemo.selectedNodeLabel },
+    { label: blockHeightLabel, value: telemetryDemo.blockNumber.toLocaleString() },
     { label: uptimeLabel, value: telemetryDemo.uptime },
   ];
   return (

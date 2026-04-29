@@ -30,7 +30,7 @@ export function Header({
         {/* Logo + branding */}
         <div className="flex items-center gap-4">
           <div
-            className="group relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-[12px] border transition-all duration-300"
+            className="group relative flex h-9 items-center justify-center overflow-hidden rounded-[12px] border px-3 transition-all duration-300"
             style={{
               borderColor: "rgba(255,255,255,0.12)",
               background: "linear-gradient(145deg, rgba(109,93,252,0.2), rgba(34,211,238,0.08) 55%, rgba(255,255,255,0.03))",
@@ -59,19 +59,19 @@ export function Header({
               className="pointer-events-none absolute inset-[5px] rounded-[9px] border"
               style={{ borderColor: "rgba(255,255,255,0.08)" }}
             />
-            <svg viewBox="0 0 36 36" className="relative z-10 h-6 w-6" fill="none" aria-hidden="true">
-              <circle cx="18" cy="18" r="3.2" fill="var(--heading)" />
-              <circle cx="18" cy="18" r="7.2" fill="none" stroke="var(--accent)" strokeOpacity="0.5" strokeWidth="1" strokeDasharray="2.2 3.4" />
-              <circle cx="18" cy="18" r="10.8" fill="none" stroke="rgba(34,211,238,0.42)" strokeWidth="0.9" strokeDasharray="4 6" />
-              <path d="M18 7.2V2.8" stroke="rgba(255,255,255,0.82)" strokeWidth="1.1" strokeLinecap="round" />
-              <path d="M18 33.2v-4.4" stroke="rgba(255,255,255,0.82)" strokeWidth="1.1" strokeLinecap="round" />
-              <path d="M7.2 18H2.8" stroke="rgba(255,255,255,0.82)" strokeWidth="1.1" strokeLinecap="round" />
-              <path d="M33.2 18h-4.4" stroke="rgba(255,255,255,0.82)" strokeWidth="1.1" strokeLinecap="round" />
-              <path d="M10.7 10.7l-3.2-3.2" stroke="rgba(34,211,238,0.7)" strokeWidth="0.95" strokeLinecap="round" />
-              <path d="M25.3 25.3l3.2 3.2" stroke="rgba(34,211,238,0.7)" strokeWidth="0.95" strokeLinecap="round" />
-              <path d="M25.3 10.7l3.2-3.2" stroke="rgba(109,93,252,0.7)" strokeWidth="0.95" strokeLinecap="round" />
-              <path d="M10.7 25.3l-3.2 3.2" stroke="rgba(109,93,252,0.7)" strokeWidth="0.95" strokeLinecap="round" />
-            </svg>
+            <div className="relative z-10 flex items-center gap-2.5">
+              <span className="relative flex h-5 w-5 items-center justify-center">
+                <span className="absolute inset-0 rounded-full border" style={{ borderColor: "rgba(34,211,238,0.24)" }} />
+                <span className="absolute inset-[4px] rounded-full" style={{ background: "var(--accent)", boxShadow: "0 0 14px rgba(109,93,252,0.45)" }} />
+                <span className="absolute inset-x-[3px] top-1/2 h-px -translate-y-1/2" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.72), transparent)" }} />
+              </span>
+              <span
+                className="font-mono text-[13px] font-semibold uppercase tracking-[0.28em]"
+                style={{ color: "var(--heading)", textShadow: "0 0 18px rgba(109,93,252,0.32)" }}
+              >
+                TYSJ
+              </span>
+            </div>
           </div>
         </div>
 

@@ -130,7 +130,6 @@ Current deployment styles supported in this project:
 ### 1. Standard server deployment
 - app binds to `0.0.0.0:3000`
 - nginx reverse-proxies external traffic to the app
-- public entry has been used behind `https://vpn.boos.lat:8051`
 
 Example restart pattern:
 

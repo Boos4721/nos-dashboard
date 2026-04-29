@@ -140,6 +140,7 @@ export function WorldMap({
               <g opacity="0.6">
                 {regionLines.map((line, index) => {
                   const isSelectedPath = line.from === selected.id || line.to === selected.id;
+                  const routeEnergy = isSelectedPath ? Math.max(0.82, telemetryDemo.selectedNodeBoost / 100) : 0.42 + (((telemetryDemo.blockNumber + index * 9) % 18) / 100);
                   return (
                     <g key={`${line.from}-${line.to}`}>
                       <path
@@ -147,12 +148,19 @@ export function WorldMap({
                         fill="none"
                         stroke="url(#routeGlow)"
                         strokeWidth={isSelectedPath ? "1.8" : "1"}
-                        strokeOpacity={isSelectedPath ? "0.95" : "0.72"}
+                        strokeOpacity={routeEnergy}
                         className="route-animated"
                         filter={isSelectedPath ? "url(#mapGlow)" : undefined}
                       />
+                      <path
+                        d={line.d}
+                        fill="none"
+                        stroke="rgba(255,255,255,0.16)"
+                        strokeWidth={isSelectedPath ? "1.2" : "0.7"}
+                        strokeOpacity={isSelectedPath ? routeEnergy * 0.55 : routeEnergy * 0.28}
+                      />
                       {isSelectedPath && (
-                        <path d={line.d} fill="none" stroke="url(#routeBeam)" strokeWidth="2.4" strokeLinecap="round" opacity="0.95">
+                        <path d={line.d} fill="none" stroke="url(#routeBeam)" strokeWidth="2.4" strokeLinecap="round" opacity={Math.min(0.98, routeEnergy + 0.08)}>
                           <animate attributeName="stroke-dasharray" values="0 220;50 170;0 220" dur={`${2.4 + index * 0.35}s`} repeatCount="indefinite" />
                           <animate attributeName="stroke-dashoffset" values="0;-220" dur={`${2.4 + index * 0.35}s`} repeatCount="indefinite" />
                         </path>
