@@ -3,6 +3,7 @@
 import type { Locale, DatacenterDynamicSnapshot } from "@/content/datacenters";
 import { datacenters, useDynamicDatacenters } from "@/content/datacenters";
 import { t } from "@/lib/i18n";
+import { useTelemetryDemoState } from "@/lib/useTelemetryDemoState";
 import { useInView } from "@/lib/useInView";
 
 const regionLines = [
@@ -54,6 +55,7 @@ export function WorldMap({
   onOpenServers: () => void;
 }) {
   const dynamicDatacenters = useDynamicDatacenters();
+  const telemetryDemo = useTelemetryDemoState();
   const dynamicMap = new Map(dynamicDatacenters.map((item) => [item.id, item] as const));
   const selected = datacenters.find((dc) => dc.id === selectedId) ?? datacenters[0];
   const selectedDynamic = dynamicMap.get(selected.id);
@@ -67,7 +69,9 @@ export function WorldMap({
   const operationalLabel = locale === "zh" ? "运行中" : "OPERATIONAL";
   const pingLabel = locale === "zh" ? "延迟" : "PING";
   const streamingLabel = locale === "zh" ? "遥测流已接入..." : "STREAMING_TELEMETRY...";
-  const routeCapacity = 92 + (selectedDynamic?.nodeCount ?? selected.nodeCount) % 7;
+  const routeCapacity = telemetryDemo.routeCapacity;
+  const signalArc = telemetryDemo.signalArc;
+  const pulseLatency = telemetryDemo.pulseLatencyMs;
 
   return (
     <section
@@ -168,6 +172,11 @@ export function WorldMap({
               {datacenters.map((dc) => {
                 const [x, y] = project(dc.coordinates);
                 const active = dc.id === selected.id;
+                const dynamicDc = dynamicMap.get(dc.id);
+                const nodeStrength = dynamicDc?.nodeCount ?? dc.nodeCount;
+                const glowBoost = active ? telemetryDemo.selectedNodeBoost : Math.max(18, Math.min(72, nodeStrength + 8));
+                const pulseRadius = active ? 28 + glowBoost * 0.18 : 14 + (nodeStrength % 7);
+                const nodeFill = active ? "var(--heading)" : glowBoost > 55 ? "var(--accent-bright)" : "var(--muted)";
                 return (
                   <g
                     key={dc.id}
@@ -182,17 +191,17 @@ export function WorldMap({
                       }
                     }}
                   >
+                    <circle cx={x} cy={y} r={pulseRadius} fill="var(--accent)" opacity={active ? 0.1 : 0.04 + glowBoost / 1600} />
+                    <circle cx={x} cy={y} r={active ? 32 : 18 + (nodeStrength % 5)} fill="none" stroke="var(--accent)" strokeOpacity={active ? 0.18 : 0.08} strokeWidth="0.8" strokeDasharray="2 4" className="animate-pulse" />
                     {active && (
                       <>
-                        <circle cx={x} cy={y} r="20" fill="var(--accent)" opacity="0.1" className="animate-pulse" />
-                        <circle cx={x} cy={y} r="32" fill="none" stroke="var(--accent)" strokeOpacity="0.18" strokeWidth="0.8" strokeDasharray="2 4" className="animate-pulse" />
                         <circle cx={x} cy={y} r="46" fill="none" stroke="rgba(34,211,238,0.16)" strokeWidth="0.6" strokeDasharray="3 7">
                           <animate attributeName="r" values="38;46;38" dur="3.2s" repeatCount="indefinite" />
                           <animate attributeName="opacity" values="0.2;0.65;0.2" dur="3.2s" repeatCount="indefinite" />
                         </circle>
                       </>
                     )}
-                    <circle cx={x} cy={y} r={active ? 4 : 2} fill={active ? "var(--heading)" : "var(--muted)"} />
+                    <circle cx={x} cy={y} r={active ? 4 : glowBoost > 55 ? 3 : 2} fill={nodeFill} />
                     <circle cx={x} cy={y} r="12" fill="transparent" />
                     {active && (
                       <text x={x + 10} y={y + 4} fill="var(--heading)" className="font-mono text-[8px] font-bold tracking-tighter">
@@ -281,11 +290,11 @@ export function WorldMap({
                 </div>
                 <div className="rounded-2xl border p-4" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
                   <p className="font-mono text-[8px] tracking-[0.2em]" style={{ color: "var(--muted)" }}>{t(mapStatusCopy.pathPulse, locale)}</p>
-                  <p className="mt-2 font-mono text-[18px]" style={{ color: "var(--cyan)" }}>{68 + (selectedDynamic?.nodeCount ?? selected.nodeCount) % 19} ms</p>
+                  <p className="mt-2 font-mono text-[18px]" style={{ color: "var(--cyan)" }}>{pulseLatency} ms</p>
                 </div>
                 <div className="rounded-2xl border p-4" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
                   <p className="font-mono text-[8px] tracking-[0.2em]" style={{ color: "var(--muted)" }}>{t(mapStatusCopy.signalArc, locale)}</p>
-                  <p className="mt-2 font-mono text-[18px]" style={{ color: "var(--heading)" }}>{84 + (selected.id.length % 9)}%</p>
+                  <p className="mt-2 font-mono text-[18px]" style={{ color: "var(--heading)" }}>{signalArc}%</p>
                 </div>
               </div>
               <div className="relative z-10 mt-4 space-y-1 font-mono text-[8px] sm:text-[9px]" style={{ color: "var(--muted)" }}>

@@ -1,20 +1,21 @@
 "use client";
 
 import type { Locale } from "@/content/datacenters";
-import { networkSummary } from "@/content/datacenters";
 import { siteContent } from "@/content/site";
 import { t } from "@/lib/i18n";
+import { useTelemetryDemoState } from "@/lib/useTelemetryDemoState";
 import { useInView } from "@/lib/useInView";
 
 export function HeroSection({ locale }: { locale: Locale }) {
   const { ref, inView } = useInView();
+  const telemetryDemo = useTelemetryDemoState();
   const systemActiveLabel = locale === "zh" ? "系统已激活" : "SYSTEM_ACTIVE";
   const uptimeLabel = locale === "zh" ? "可用率" : "UPTIME";
   const heroStats = [
-    { label: locale === "zh" ? "算力" : "HASHRATE", value: networkSummary.totalHashrate },
-    { label: locale === "zh" ? "节点数" : "NODES", value: String(networkSummary.totalNodes) },
-    { label: locale === "zh" ? "区域" : "REGIONS", value: String(networkSummary.activeRegions) },
-    { label: uptimeLabel, value: "99.98%" },
+    { label: locale === "zh" ? "算力" : "HASHRATE", value: telemetryDemo.hashrate },
+    { label: locale === "zh" ? "节点数" : "NODES", value: String(telemetryDemo.totalNodes) },
+    { label: locale === "zh" ? "区域" : "REGIONS", value: String(telemetryDemo.activeRegions) },
+    { label: uptimeLabel, value: telemetryDemo.uptime },
   ];
   return (
     <section ref={ref as React.RefObject<HTMLElement>} style={{ transitionDelay: "0.15s" }} className={`relative mx-auto max-w-7xl px-4 pb-16 pt-12 sm:px-6 sm:pb-24 sm:pt-20 lg:px-10 lg:pb-32 lg:pt-32 scroll-reveal ${inView ? "in-view" : ""}`}>
