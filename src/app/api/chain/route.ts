@@ -79,9 +79,10 @@ type TxView = {
   gasUsed?: number;
   status?: number;
   contractAddress?: string | null;
+  blockNumber?: number;
 };
 
-function mapTx(tx: RpcTransaction): TxView {
+function mapTx(tx: RpcTransaction, blockNumber?: number): TxView {
   return {
     hash: tx.hash,
     from: tx.from,
@@ -90,6 +91,7 @@ function mapTx(tx: RpcTransaction): TxView {
     gasUsed: hexToNumber(tx.gasUsed),
     status: hexToNumber(tx.status),
     contractAddress: tx.contractAddress ?? null,
+    blockNumber,
   };
 }
 
@@ -104,7 +106,11 @@ async function collectRecentTransactions(latestBlockHex: string): Promise<TxView
     blockHexes.map((blockHex, index) => rpc("eth_getBlockByNumber", [blockHex, true], 100 + index)),
   );
 
-  const transactions = blocks.flatMap((block) => ((block as RpcBlock).transactions ?? []).map(mapTx));
+  const transactions = blocks.flatMap((block) => {
+    const typedBlock = block as RpcBlock;
+    const typedBlockNumber = hexToNumber(typedBlock.number);
+    return (typedBlock.transactions ?? []).map((tx) => mapTx(tx, typedBlockNumber));
+  });
   return transactions.slice(0, MAX_RECENT_TX);
 }
 
@@ -119,7 +125,7 @@ export async function GET() {
 
     const b = block as RpcBlock;
     const blockNumber = hexToNumber(blockNumberHex);
-    const latestBlockTransactions = (b.transactions ?? []).map(mapTx);
+    const latestBlockTransactions = (b.transactions ?? []).map((tx) => mapTx(tx, blockNumber));
     const recentTransactions =
       latestBlockTransactions.length >= MAX_RECENT_TX
         ? latestBlockTransactions.slice(0, MAX_RECENT_TX)

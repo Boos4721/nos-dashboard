@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
+import { CommandCenterPanel } from "@/components/CommandCenterPanel";
 import { ChainTelemetry } from "@/components/ChainTelemetry";
 import { WorldMap } from "@/components/WorldMap";
 import { EcosystemLinks } from "@/components/EcosystemLinks";
@@ -12,10 +13,18 @@ import { WalletConnectCard } from "@/components/WalletConnectCard";
 import { Footer } from "@/components/Footer";
 import { LoadingOverlay } from "@/components/LoadingOverlay";
 import { ServerPanel } from "@/components/ServerPanel";
-import { datacenters, type Locale } from "@/content/datacenters";
+import { datacenters, type Locale, type LocalizedText } from "@/content/datacenters";
+import { buildCommandCenterEvents, buildCommandCenterSignals } from "@/content/commandCenter";
 import { useChainData } from "@/lib/useChainData";
 
 const IS_GITHUB_PAGES = process.env.NEXT_PUBLIC_IS_GITHUB_PAGES === "true";
+const HERO_DEMO_HUBS: LocalizedText[] = [
+  { en: "Yichang Core Hub", zh: "宜昌主枢纽" },
+  { en: "Karamay Backbone", zh: "克拉玛依骨干" },
+  { en: "Hangzhou Edge Ingress", zh: "杭州边缘入口" },
+  { en: "Hong Kong Public Relay", zh: "香港公网中继" },
+  { en: "Singapore Global Gateway", zh: "新加坡国际接入" },
+];
 
 export default function Home() {
   const [selectedId, setSelectedId] = useState(datacenters[0].id);
@@ -57,6 +66,18 @@ export default function Home() {
   }, []);
 
   const selectedDc = datacenters.find((dc) => dc.id === selectedId) ?? datacenters[0];
+  const heroHashrate = IS_GITHUB_PAGES ? "28.8 PH/s" : selectedDc.hashrate;
+  const heroActiveHub = IS_GITHUB_PAGES
+    ? HERO_DEMO_HUBS[Math.floor((chain.lastUpdated ?? Date.now()) / 15000) % HERO_DEMO_HUBS.length][locale]
+    : selectedDc.name[locale];
+  const heroBlockHeight = chain.data?.blockNumber ?? 0;
+  const heroUptime = IS_GITHUB_PAGES
+    ? "99.987%"
+    : chain.error
+      ? "--"
+      : "99.95%";
+  const commandCenterSignals = buildCommandCenterSignals(locale, chain.data?.blockNumber);
+  const commandCenterEvents = buildCommandCenterEvents(chain.data?.blockNumber);
 
   return (
     <>
@@ -114,7 +135,13 @@ export default function Home() {
         <div className="pointer-events-none absolute bottom-0 right-[15%] top-0 w-px opacity-15" style={{ background: "var(--border)" }} />
 
         <Header locale={locale} onLocaleChange={setLocale} />
-        <HeroSection locale={locale} />
+        <HeroSection
+          locale={locale}
+          hashrate={heroHashrate}
+          activeHub={heroActiveHub}
+          blockHeight={heroBlockHeight}
+          uptime={heroUptime}
+        />
         <ChainTelemetry
           locale={locale}
           data={chain.data}
@@ -122,7 +149,15 @@ export default function Home() {
           error={chain.error}
           simulated={IS_GITHUB_PAGES}
         />
-        <WorldMap locale={locale} selectedId={selectedId} onSelect={handleSelect} onOpenServers={() => setServerPanelOpen(true)} />
+        <CommandCenterPanel locale={locale} signals={commandCenterSignals} events={commandCenterEvents} />
+        <WorldMap
+          locale={locale}
+          selectedId={selectedId}
+          onSelect={handleSelect}
+          onOpenServers={() => setServerPanelOpen(true)}
+          chainBlockNumber={chain.data?.blockNumber}
+          simulated={IS_GITHUB_PAGES}
+        />
         <EcosystemLinks locale={locale} />
         <AccessCTA locale={locale} />
         <section className="mx-auto max-w-7xl px-6 pb-16 lg:px-10 lg:pb-24">

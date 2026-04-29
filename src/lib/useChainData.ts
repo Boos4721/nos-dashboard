@@ -23,6 +23,7 @@ export interface ChainData {
     gasUsed?: number;
     status?: number;
     contractAddress?: string | null;
+    blockNumber?: number;
   }[];
   rawBlockHash: string;
   rawMiner: string;

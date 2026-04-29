@@ -65,13 +65,14 @@ export function ChainTelemetry({
   const pagesFallbackLabel = locale === "zh" ? "当前为静态页面部署，链上接口未启用" : "Static deployment mode: chain API unavailable";
   const simulatedBadgeLabel = locale === "zh" ? "静态演示" : "SIMULATED_FEED";
   const simulatedHintLabel = locale === "zh" ? "当前为 GitHub Pages 静态演示数据，用于展示链路与界面状态。" : "GitHub Pages is showing a simulated telemetry snapshot for presentation only.";
+  const lastSyncLabel = locale === "zh" ? "最后同步" : "LAST_SYNC";
 
   const stats = data
     ? [
-        { label: "BLOCK_HEIGHT", value: data.blockNumber.toLocaleString() },
-        { label: "GAS_PRICE", value: `${data.gasPriceGwei} GWEI` },
-        { label: "NETWORK_ID", value: String(data.chainId) },
-        { label: "TX_COUNT", value: String(data.txCount) },
+        { label: locale === "zh" ? "区块高度" : "BLOCK_HEIGHT", value: data.blockNumber.toLocaleString() },
+        { label: locale === "zh" ? "Gas 价格" : "GAS_PRICE", value: `${data.gasPriceGwei} GWEI` },
+        { label: locale === "zh" ? "网络 ID" : "NETWORK_ID", value: String(data.chainId) },
+        { label: locale === "zh" ? "交易数量" : "TX_COUNT", value: String(data.txCount) },
       ]
     : [];
 
@@ -101,11 +102,19 @@ export function ChainTelemetry({
             </div>
           )}
           <div className="hidden sm:block h-px flex-1" style={{ background: "var(--border)" }} />
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className={data ? "live-dot" : "h-1.5 w-1.5 rounded-full bg-red-500"} />
             <span className="font-mono text-[9px]" style={{ color: "var(--muted)" }}>
               {statusLabel}
             </span>
+            {data && (
+              <>
+                <span className="font-mono text-[9px] opacity-40" style={{ color: "var(--muted)" }}>·</span>
+                <span className="font-mono text-[9px]" style={{ color: "var(--muted)" }}>
+                  {lastSyncLabel}: {formatTimestamp(data.timestamp)}
+                </span>
+              </>
+            )}
           </div>
         </div>
 
@@ -158,6 +167,7 @@ export function ChainTelemetry({
               {data ? (
                 [
                   { k: "HASH", v: data.rawBlockHash },
+                  { k: "HEIGHT", v: data.blockNumber.toLocaleString() },
                   { k: "MINER", v: data.rawMiner },
                   { k: "GAS_USED", v: `${data.gasUsed.toLocaleString()} / ${data.gasLimit.toLocaleString()}` },
                   { k: "STAMP", v: formatTimestamp(data.timestamp) },
@@ -207,9 +217,18 @@ export function ChainTelemetry({
                           </span>
                         )}
                       </div>
-                      <div className="mt-0.5 flex items-center gap-1.5 text-[9px] font-mono" style={{ color: "var(--muted)" }}>
+                      <div className="mt-0.5 flex items-center gap-1.5 text-[9px] font-mono flex-wrap" style={{ color: "var(--muted)" }}>
+                        <span className="opacity-60">BLOCK</span>
+                        <span className="truncate">#{tx.blockNumber?.toLocaleString() ?? "—"}</span>
+                        <span className="opacity-30">·</span>
+                        <span className="opacity-60">AMOUNT</span>
+                        <span>{tx.value ? `${formatValue(tx.value)} NOS` : "0 NOS"}</span>
+                      </div>
+                      <div className="mt-0.5 flex items-center gap-1.5 text-[9px] font-mono flex-wrap" style={{ color: "var(--muted)" }}>
+                        <span className="opacity-60">FROM</span>
                         <span className="truncate max-w-[80px] sm:max-w-[100px]">{shortAddr(tx.from)}</span>
                         <span className="opacity-30">→</span>
+                        <span className="opacity-60">TO</span>
                         <span className="truncate max-w-[80px] sm:max-w-[100px]">{shortAddr(tx.to)}</span>
                       </div>
                     </div>

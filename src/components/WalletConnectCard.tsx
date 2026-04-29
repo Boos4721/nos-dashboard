@@ -44,8 +44,8 @@ function walletCopy(locale: Locale) {
     title: locale === "zh" ? "连接钱包进入链上视图。" : "Connect MetaMask for on-chain access.",
     description:
       locale === "zh"
-        ? "将网页内置钱包连接入口，方便直接进入 13 号链环境并访问监控与链上交互能力。"
-        : "Embed a native MetaMask entry so visitors can connect directly to chain 13 and unlock monitoring-oriented on-chain interactions.",
+        ? "将网页内置钱包连接入口，方便直接进入 NOS 链环境并访问监控与链上交互能力。"
+        : "Embed a native MetaMask entry so visitors can connect directly to NOS Chain and unlock monitoring-oriented on-chain interactions.",
     noProvider: locale === "zh" ? "未检测到钱包插件" : "MetaMask not detected",
     providerReady: locale === "zh" ? "钱包插件可用" : "MetaMask available",
     connected: locale === "zh" ? "钱包已连接" : "Wallet connected",
@@ -53,12 +53,12 @@ function walletCopy(locale: Locale) {
     connect: locale === "zh" ? "连接钱包" : "Connect MetaMask",
     connecting: locale === "zh" ? "连接中..." : "Connecting...",
     install: locale === "zh" ? "安装钱包插件" : "Install MetaMask",
-    switchNetwork: locale === "zh" ? "切换到链 13" : "Switch to Chain 13",
+    switchNetwork: locale === "zh" ? "切换到 NOS 链" : "Switch to NOS Chain",
     connectedAccount: locale === "zh" ? "已连接地址" : "Connected account",
     activeNetwork: locale === "zh" ? "当前网络" : "Active network",
     targetNetwork: locale === "zh" ? "目标网络" : "Target network",
-    chainReady: locale === "zh" ? "已对准链 13" : "Aligned to Chain 13",
-    chainMismatch: locale === "zh" ? "当前不在链 13" : "Not on Chain 13",
+    chainReady: locale === "zh" ? "已对准 NOS 链" : "Aligned to NOS Chain",
+    chainMismatch: locale === "zh" ? "当前不在 NOS 链" : "Not on NOS Chain",
     openDapp: locale === "zh" ? "打开监控页面" : "Open Monitor DApp",
     dappHref: "https://wallet.web3s.finance/#/13.node-monitor",
     installHint:
@@ -199,7 +199,7 @@ export function WalletConnectCard({ locale }: { locale: Locale }) {
   return (
     <div className="p-px" style={{ background: "var(--border)" }}>
       <div
-        className="relative overflow-hidden flex h-full flex-col gap-8 p-8 lg:p-10"
+        className="relative overflow-hidden flex h-full flex-col gap-8 p-8 lg:p-10 wallet-shell"
         style={{
           background: "var(--background-elevated)",
           boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 30px 80px rgba(0,0,0,0.18)",
@@ -223,6 +223,15 @@ export function WalletConnectCard({ locale }: { locale: Locale }) {
               {copy.description}
             </p>
           </div>
+
+          <div className="flex flex-wrap gap-2">
+            <span className="rounded-full border px-3 py-1 font-mono text-[8px] tracking-[0.22em]" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)", color: "var(--accent-bright)" }}>
+              {locale === "zh" ? "原生钱包接入" : "NATIVE WALLET ACCESS"}
+            </span>
+            <span className="rounded-full border px-3 py-1 font-mono text-[8px] tracking-[0.22em]" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)", color: "var(--cyan)" }}>
+              {locale === "zh" ? "链上视图联动" : "ON-CHAIN VIEW LINKED"}
+            </span>
+          </div>
         </div>
 
         <div className="relative z-10 grid gap-px md:grid-cols-3" style={{ background: "var(--border)" }}>
@@ -242,11 +251,11 @@ export function WalletConnectCard({ locale }: { locale: Locale }) {
             {
               label: copy.targetNetwork,
               displayLabel: copy.targetNetwork,
-              value: locale === "zh" ? `${TARGET_CHAIN_ID_HEX} / 十进制 ${TARGET_CHAIN_ID_DEC}` : `${TARGET_CHAIN_ID_HEX} / ${TARGET_CHAIN_ID_DEC}`,
+              value: locale === "zh" ? `NOS 链 / ${TARGET_CHAIN_ID_HEX} / 十进制 ${TARGET_CHAIN_ID_DEC}` : `NOS Chain / ${TARGET_CHAIN_ID_HEX} / ${TARGET_CHAIN_ID_DEC}`,
               tone: "var(--accent-bright)",
             },
-          ].map((item) => (
-            <div key={item.label} className="space-y-2 p-5" style={{ background: "var(--background)" }}>
+          ].map((item, index) => (
+            <div key={item.label} className="space-y-2 p-5 wallet-metric-card" style={{ background: "var(--background)", animationDelay: `${index * 110}ms` }}>
               <p className="font-mono text-[8px] tracking-[0.18em]" style={{ color: "var(--muted)" }}>
                 {locale === "zh" ? item.displayLabel : item.label.toUpperCase()}
               </p>
@@ -257,7 +266,7 @@ export function WalletConnectCard({ locale }: { locale: Locale }) {
           ))}
         </div>
 
-        <div className="relative z-10 flex flex-wrap items-center gap-3 rounded-2xl border px-4 py-4" style={{ borderColor: "var(--border)", background: "rgba(255,255,255,0.03)", backdropFilter: "blur(12px)" }}>
+        <div className="relative z-10 flex flex-wrap items-center gap-3 rounded-2xl border px-4 py-4 wallet-status-ribbon" style={{ borderColor: "var(--border)", background: "rgba(255,255,255,0.03)", backdropFilter: "blur(12px)" }}>
           <span className={state.hasProvider ? "live-dot" : "h-2 w-2 rounded-full bg-amber-500"} />
           <span className="font-mono text-[10px] uppercase tracking-[0.24em]" style={{ color: "var(--muted)" }}>
             {state.hasProvider ? copy.providerReady : copy.noProvider}
@@ -291,7 +300,7 @@ export function WalletConnectCard({ locale }: { locale: Locale }) {
             type="button"
             onClick={connectWallet}
             disabled={state.connecting}
-            className="flex h-14 min-w-[220px] items-center justify-center bg-white px-8 text-[13px] font-bold tracking-widest text-black transition-all hover:bg-[var(--accent-bright)] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+            className="flex h-14 min-w-[220px] items-center justify-center bg-white px-8 text-[13px] font-bold tracking-widest text-black transition-all hover:bg-[var(--accent-bright)] hover:text-white disabled:cursor-not-allowed disabled:opacity-60 wallet-primary-action"
           >
             {state.connecting ? (locale === "zh" ? copy.connecting : copy.connecting.toUpperCase()) : (state.hasProvider ? (locale === "zh" ? copy.connect : copy.connect.toUpperCase()) : (locale === "zh" ? copy.install : copy.install.toUpperCase()))}
           </button>
@@ -300,14 +309,14 @@ export function WalletConnectCard({ locale }: { locale: Locale }) {
             type="button"
             onClick={switchChain}
             disabled={!state.hasProvider || !state.connected || state.connecting || isTargetChain}
-            className="flex h-14 min-w-[220px] items-center justify-center border bg-transparent px-8 text-[13px] font-bold tracking-widest transition-all hover:border-[var(--heading)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-14 min-w-[220px] items-center justify-center border bg-transparent px-8 text-[13px] font-bold tracking-widest transition-all hover:border-[var(--heading)] disabled:cursor-not-allowed disabled:opacity-50 wallet-secondary-action"
             style={{ borderColor: "var(--border)", color: "var(--heading)" }}
           >
             {locale === "zh" ? copy.switchNetwork : copy.switchNetwork.toUpperCase()}
           </button>
 
           <a
-            className="flex h-14 min-w-[220px] items-center justify-center border px-8 text-[13px] font-bold tracking-widest transition-all hover:border-[var(--accent)] hover:text-[var(--accent-bright)]"
+            className="flex h-14 min-w-[220px] items-center justify-center border px-8 text-[13px] font-bold tracking-widest transition-all hover:border-[var(--accent)] hover:text-[var(--accent-bright)] wallet-secondary-action"
             style={{ borderColor: "var(--border)", color: "var(--heading)" }}
             href={copy.dappHref}
             target="_blank"

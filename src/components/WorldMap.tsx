@@ -1,7 +1,7 @@
 "use client";
 
-import type { Locale, DatacenterDynamicSnapshot } from "@/content/datacenters";
-import { datacenters, useDynamicDatacenters } from "@/content/datacenters";
+import type { Locale, DatacenterDynamicSnapshot, LiveDatacenterSnapshot } from "@/content/datacenters";
+import { datacenters, useDynamicDatacenters, useLiveDatacenters } from "@/content/datacenters";
 import { t } from "@/lib/i18n";
 import { useTelemetryDemoState } from "@/lib/useTelemetryDemoState";
 import { useInView } from "@/lib/useInView";
@@ -35,6 +35,10 @@ const mapStatusCopy = {
   connectedTo: { en: "CONNECTED_TO", zh: "已接入节点" },
   pathPulse: { en: "PATH_PULSE", zh: "路径脉冲" },
   signalArc: { en: "SIGNAL ARC", zh: "信号弧带" },
+  commandCenter: { en: "COMMAND CENTER", zh: "指挥中心" },
+  eventFlow: { en: "EVENT FLOW", zh: "事件流" },
+  globalScreen: { en: "GLOBAL SCREEN", zh: "全局大屏" },
+  focusNode: { en: "FOCUS NODE", zh: "焦点节点" },
 } as const;
 
 function project([longitude, latitude]: [number, number]) {
@@ -48,13 +52,17 @@ export function WorldMap({
   selectedId,
   onSelect,
   onOpenServers,
+  chainBlockNumber,
+  simulated = false,
 }: {
   locale: Locale;
   selectedId: string;
   onSelect: (id: string) => void;
   onOpenServers: () => void;
+  chainBlockNumber?: number;
+  simulated?: boolean;
 }) {
-  const dynamicDatacenters = useDynamicDatacenters();
+  const dynamicDatacenters = simulated ? useDynamicDatacenters() : useLiveDatacenters(chainBlockNumber);
   const telemetryDemo = useTelemetryDemoState();
   const dynamicMap = new Map(dynamicDatacenters.map((item) => [item.id, item] as const));
   const selected = datacenters.find((dc) => dc.id === selectedId) ?? datacenters[0];
@@ -106,6 +114,7 @@ export function WorldMap({
             <div className="pointer-events-none absolute right-4 top-4 z-20 flex flex-wrap items-center gap-2">
               <span className="rounded-full border px-2.5 py-1 font-mono text-[8px] tracking-[0.24em]" style={{ borderColor: "rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.05)", color: "var(--accent-bright)" }}>{t(mapStatusCopy.liveMatrix, locale)}</span>
               <span className="rounded-full border px-2.5 py-1 font-mono text-[8px] tracking-[0.24em]" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.04)", color: "var(--muted)" }}>{t(mapStatusCopy.routeMesh, locale)}</span>
+              <span className="rounded-full border px-2.5 py-1 font-mono text-[8px] tracking-[0.24em]" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.04)", color: "var(--cyan)" }}>{t(mapStatusCopy.commandCenter, locale)}</span>
             </div>
             <svg viewBox="0 0 980 470" className="relative z-10 h-full w-full" role="img">
               <defs>
@@ -231,6 +240,10 @@ export function WorldMap({
                   <p className="font-mono text-[9px] font-bold mb-4 sm:mb-6" style={{ color: "var(--muted)" }}>{manifestLabel}</p>
                   <h3 className="text-lg sm:text-xl font-light tracking-tight" style={{ color: "var(--heading)" }}>{t(selected.name, locale)}</h3>
                   <p className="mt-2 font-mono text-[10px]" style={{ color: "var(--muted)" }}>{t(selected.region, locale)} // {t(selected.country, locale)}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <span className="rounded-full border px-2.5 py-1 font-mono text-[8px] tracking-[0.22em]" style={{ borderColor: "rgba(255,255,255,0.08)", color: "var(--accent-bright)" }}>{t(mapStatusCopy.focusNode, locale)}</span>
+                    <span className="rounded-full border px-2.5 py-1 font-mono text-[8px] tracking-[0.22em]" style={{ borderColor: "rgba(255,255,255,0.08)", color: "var(--cyan)" }}>{t(mapStatusCopy.globalScreen, locale)}</span>
+                  </div>
                 </div>
                 <div className="rounded-2xl border px-4 py-3 text-right" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)" }}>
                   <p className="font-mono text-[8px] tracking-[0.24em]" style={{ color: "var(--muted)" }}>{t(mapStatusCopy.selectedHub, locale)}</p>
@@ -303,6 +316,16 @@ export function WorldMap({
                 <div className="rounded-2xl border p-4" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
                   <p className="font-mono text-[8px] tracking-[0.2em]" style={{ color: "var(--muted)" }}>{t(mapStatusCopy.signalArc, locale)}</p>
                   <p className="mt-2 font-mono text-[18px]" style={{ color: "var(--heading)" }}>{signalArc}%</p>
+                </div>
+              </div>
+              <div className="relative z-10 mt-4 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl border p-4" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
+                  <p className="font-mono text-[8px] tracking-[0.2em]" style={{ color: "var(--muted)" }}>{t(mapStatusCopy.commandCenter, locale)}</p>
+                  <p className="mt-2 font-mono text-[14px]" style={{ color: "var(--accent-bright)" }}>{locale === "zh" ? "就绪" : "ARMED"}</p>
+                </div>
+                <div className="rounded-2xl border p-4" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
+                  <p className="font-mono text-[8px] tracking-[0.2em]" style={{ color: "var(--muted)" }}>{t(mapStatusCopy.eventFlow, locale)}</p>
+                  <p className="mt-2 font-mono text-[14px]" style={{ color: "var(--cyan)" }}>{locale === "zh" ? "持续流入" : "STREAMING"}</p>
                 </div>
               </div>
               <div className="relative z-10 mt-4 space-y-1 font-mono text-[8px] sm:text-[9px]" style={{ color: "var(--muted)" }}>

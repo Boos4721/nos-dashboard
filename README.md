@@ -8,11 +8,12 @@ High-end public infrastructure dashboard for TYSJ / NOS-style network operations
 
 - global datacenter distribution
 - live-feeling chain telemetry
+- command center situational awareness
 - ecosystem entry portals
-- wallet connection for chain 13
-- dual-theme premium UI inspired by products like qu.ai
+- wallet connection for NOS Chain
+- dual-theme premium UI inspired by products like qu.ai and modern AI / infra control surfaces
 
-The project intentionally avoids mining-sensitive wording in the UI and reframes the public surface around compute, operations, infrastructure, and monitoring.
+The project intentionally avoids mining-sensitive wording in the UI and reframes the public surface around compute, operations, infrastructure, monitoring, and chain telemetry.
 
 ## Tech Stack
 
@@ -21,6 +22,7 @@ The project intentionally avoids mining-sensitive wording in the UI and reframes
 - TypeScript
 - Tailwind CSS 4
 - custom SVG / CSS motion system
+- live chain telemetry via `/api/chain`
 - native injected wallet integration via `window.ethereum`
 
 ## Main Features
@@ -28,35 +30,63 @@ The project intentionally avoids mining-sensitive wording in the UI and reframes
 ### 1. Premium landing experience
 - dark / light dual themes
 - animated loading overlay
-- layered gradient background motion
-- premium glassmorphism panels and telemetry styling
+- scroll-reactive gradient field and ambient aurora motion
+- premium glass / grid / telemetry hybrid visual language
+- animated hero signal panel with marquee status feed
 
-### 2. Global operations map
+### 2. Command center surface
+- homepage command center block with situational metrics
+- tactical event stream with severity glow states
+- animated coordination matrix and orchestration cards
+- stronger “ops room / global screen” storytelling for NOS Chain
+
+### 3. Global operations map
 - custom SVG world operations map
 - selected-node emphasis with pulse rings and route glow
 - animated route beams and telemetry-like overlays
-- server list opens explicitly instead of auto-opening on map click
-- Chinese localization for map labels, regions, node names, and status copy
+- map click selects regions only; server list opens explicitly
+- Chinese localization for labels, regions, node names, and status copy
+- command-center status chips integrated into the map surface
 
-### 3. Chain telemetry panel
+### 4. Chain telemetry panel
 - `/api/chain` endpoint-backed chain status area
 - recent block / transaction display
 - localized section labels for Chinese pages
 - resilient loading / offline presentation
+- local mode uses real chain data; GitHub Pages uses static-friendly fallback behavior
 
-### 4. Wallet access layer
+### 5. Wallet access layer
 - detects injected wallet provider
 - connect wallet flow
-- chain 13 switch prompt
+- switch to NOS Chain prompt
+- richer wallet shell with animated status ribbon and action sheen
 - monitoring page launch entry
 - localized Chinese wallet copy
 
-### 5. Ecosystem routing
+### 6. Ecosystem routing
 - official site
-- NOS Miner portal
+- NOS ecosystem portals
 - NOS Scan explorer
 - Web3S Box
 - NOS Monitor DApp
+
+## UI / UX Direction
+
+The current visual direction emphasizes:
+
+- high-end infra / AI-console atmosphere
+- stronger motion layering without hurting readability
+- premium dark glass mixed with grid telemetry surfaces
+- localized Chinese-first polish where appropriate
+- NOS Chain branding instead of internal chain-number language
+
+Recent UX upgrades include:
+
+- homepage command-center section now directly embedded in the landing flow
+- hero upgraded with signal panel, badges, ambient aurora, and scrolling control-feed motion
+- wallet card upgraded with more tactical status presentation and richer hover feedback
+- command-center cards now feel more alive through pulse, drift, grid, and severity-based motion
+- all public chain-switching copy aligned to “NOS 链 / NOS Chain”
 
 ## Localization
 
@@ -67,18 +97,37 @@ The UI supports:
 
 Recent work focused heavily on making the Chinese experience cleaner by removing remaining English labels from hero stats, map panels, telemetry headers, wallet UI, and ecosystem routing blocks.
 
+## Dynamic Data Model
+
+The dashboard mixes:
+
+- real chain-facing data for telemetry via `/api/chain`
+- live or simulated datacenter metrics depending on environment
+- animated frontend-only presentation layers for motion, route pulse, and homepage signal storytelling
+
+### Environment split
+
+- **local / server deployment**: homepage consumes real chain state from `useChainData()` and live datacenter behavior from `useLiveDatacenters()`
+- **GitHub Pages**: static demo mode uses simulation/fallback-friendly values so the UI remains polished on a static host
+
+This lets the same design work both as:
+
+- a real chain-aware public dashboard
+- a static GitHub Pages showcase
+
 ## Project Structure
 
 ```text
 src/
   app/
-    api/chain/          # chain telemetry endpoint
-    globals.css         # theme variables, animations, global utilities
-    page.tsx            # homepage composition
+    api/chain/              # chain telemetry endpoint
+    globals.css             # theme variables, animations, global utilities
+    page.tsx                # homepage composition + environment-aware data flow
   components/
     Header.tsx
     HeroSection.tsx
     ChainTelemetry.tsx
+    CommandCenterPanel.tsx  # homepage command-center situation surface
     WorldMap.tsx
     ServerPanel.tsx
     WalletConnectCard.tsx
@@ -87,10 +136,11 @@ src/
     Footer.tsx
     LoadingOverlay.tsx
   content/
-    datacenters.ts      # datacenter definitions + dynamic simulation hook
-    servers.ts          # server inventory / roles
-    products.ts         # ecosystem routing cards
-    site.ts             # site copy
+    commandCenter.ts        # command-center signals/events
+    datacenters.ts          # datacenter definitions + dynamic simulation/live hook
+    servers.ts              # server inventory / roles
+    products.ts             # ecosystem routing cards
+    site.ts                 # site copy
   lib/
     i18n.ts
     useChainData.ts
@@ -138,16 +188,22 @@ fuser -k 3000/tcp || true
 npm run start -- --hostname 0.0.0.0 --port 3000
 ```
 
+Project-specific production restart helper:
+
+```bash
+/root/nos-dashboard/scripts/restart-prod.sh
+```
+
 ### 2. GitHub Pages deployment via CI
-The repo now includes a GitHub Actions workflow for GitHub Pages.
+The repo includes a GitHub Actions workflow for GitHub Pages.
 
 Important limitation:
 - GitHub Pages is a static deployment target
 - the visual dashboard works there
 - the in-repo `/api/chain` route does not run on Pages
-- in Pages mode, the telemetry module falls back to a static-unavailable message instead of hanging or crashing
+- in Pages mode, telemetry and homepage hero use static-safe simulated values rather than breaking
 
-After pushing to `main`, you can enable Pages in the GitHub repository settings and choose:
+After pushing to `main`, enable Pages in the GitHub repository settings and choose:
 - **Source**: GitHub Actions
 
 The workflow will:
@@ -162,22 +218,7 @@ Expected Pages URL pattern:
 https://boos4721.github.io/nos-dashboard/
 ```
 
-## Dynamic Data Model
-
-The dashboard mixes:
-
-- real chain-facing data for telemetry via `/api/chain`
-- simulated-but-dynamic frontend datacenter metrics via `useDynamicDatacenters()`
-
-That simulation intentionally creates non-static movement for:
-
-- hashrate / compute totals
-- node count
-- latency
-
-This keeps the UI visually alive until a full backend monitoring API is wired in.
-
-## UI / Product Decisions
+## Product Conventions
 
 Important product conventions currently reflected in the codebase:
 
@@ -186,14 +227,7 @@ Important product conventions currently reflected in the codebase:
 - public copy should avoid sensitive mining terminology
 - premium visual direction should stay close to high-end AI / infra dashboards
 - wallet integration remains lightweight and avoids heavy web3 UI libraries
-
-## Suggested Next Technical Work
-
-- replace simulated datacenter metrics with real monitoring APIs
-- add richer route particle systems on the map
-- add stronger global basemap / geographic layers
-- improve wallet success-state visuals and chain feedback
-- add screenshot / deployment docs for future maintainers
+- public branding should use **NOS 链 / NOS Chain**, not “链 13 / Chain 13” in user-facing UI
 
 ## Scripts
 
@@ -203,6 +237,14 @@ npm run build
 npm run start
 npm run lint
 ```
+
+## Suggested Next Technical Work
+
+- connect more homepage motion blocks to true monitoring backends
+- upgrade `ServerPanel` into a fully embedded datacenter detail surface on the homepage
+- wire in role-based dashboard views using the existing role scaffolding
+- add visual regression screenshots for future design iterations
+- document screenshots / deployment examples for future maintainers
 
 ## Repository
 

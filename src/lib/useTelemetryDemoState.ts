@@ -14,7 +14,10 @@ export type TelemetryDemoState = {
   routeCapacity: number;
   pulseLatencyMs: number;
   selectedNodeBoost: number;
-  selectedNodeLabel: string;
+  selectedNodeLabel: {
+    en: string;
+    zh: string;
+  };
   updatedAt: number;
 };
 
@@ -26,7 +29,13 @@ const BASE_BLOCK = 2897341;
 const BASE_ROUTE_CAPACITY = 93;
 const BASE_SIGNAL_ARC = 88;
 const BASE_PULSE_LATENCY = 71;
-const DEMO_HUBS = ["宜昌主枢纽", "克拉玛依骨干", "杭州边缘入口", "香港公网中继", "新加坡国际接入"];
+const DEMO_HUBS = [
+  { en: "Yichang Core Hub", zh: "宜昌主枢纽" },
+  { en: "Karamay Backbone", zh: "克拉玛依骨干" },
+  { en: "Hangzhou Edge Ingress", zh: "杭州边缘入口" },
+  { en: "Hong Kong Public Relay", zh: "香港公网中继" },
+  { en: "Singapore Global Gateway", zh: "新加坡国际接入" },
+] as const;
 
 function formatHashrate(value: number) {
   return `${value.toFixed(1)} PH/s`;

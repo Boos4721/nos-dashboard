@@ -31,6 +31,14 @@ export type DatacenterDynamicSnapshot = {
   updatedAt: number;
 };
 
+export type LiveDatacenterSnapshot = {
+  id: string;
+  hashrate: string;
+  nodeCount: number;
+  latency: LocalizedText;
+  updatedAt: number;
+};
+
 const latencyCopy = {
   unit: { en: "ms", zh: "毫秒" },
   intraRegion: { en: "intra-region", zh: "区域内" },
@@ -333,4 +341,59 @@ export function useDynamicDatacenters() {
       };
     });
   }, [tick]);
+}
+
+export function useLiveDatacenters(chainBlockNumber?: number) {
+  return useMemo<LiveDatacenterSnapshot[]>(() => {
+    const now = Date.now();
+    const blockSeed = chainBlockNumber ?? Math.floor(now / 15000);
+
+    return datacenters.map((dc, index) => {
+      const variance = regionHashrateVariance[dc.id] ?? 0.2;
+      const phase = (blockSeed + index * 17) / 9;
+      const hashrateDelta = Math.sin(phase) * variance;
+      const nodeDelta = Math.round(Math.cos(phase / 1.7) * (regionNodeVariance[dc.id] ?? 1));
+      const [min, max] = regionLatencyRange[dc.id] ?? [10, 20];
+      const latencyMid = (min + max) / 2;
+      const latencySwing = (max - min) / 2;
+      const latencyValue = Math.round(latencyMid + Math.sin(phase / 1.4) * latencySwing);
+      const baseLabel = dc.latency.en;
+
+      let latency: LocalizedText;
+      if (baseLabel.includes(latencyCopy.intraRegion.en) || baseLabel.includes(latencyCopy.intraRegion.zh)) {
+        latency = {
+          en: `${latencyValue} ${latencyCopy.unit.en} ${latencyCopy.intraRegion.en}`,
+          zh: `${latencyValue} ${latencyCopy.unit.zh} · ${latencyCopy.intraRegion.zh}`,
+        };
+      } else if (baseLabel.includes(latencyCopy.regional.en) || baseLabel.includes(latencyCopy.regional.zh)) {
+        latency = {
+          en: `${latencyValue} ${latencyCopy.unit.en} ${latencyCopy.regional.en}`,
+          zh: `${latencyValue} ${latencyCopy.unit.zh} · ${latencyCopy.regional.zh}`,
+        };
+      } else if (baseLabel.includes(latencyCopy.backbone.en) || baseLabel.includes(latencyCopy.backbone.zh)) {
+        latency = {
+          en: `${latencyValue} ${latencyCopy.unit.en} ${latencyCopy.backbone.en}`,
+          zh: `${latencyValue} ${latencyCopy.unit.zh} · ${latencyCopy.backbone.zh}`,
+        };
+      } else if (baseLabel.includes(latencyCopy.apacAverage.en) || baseLabel.includes(latencyCopy.apacAverage.zh)) {
+        latency = {
+          en: `${latencyValue} ${latencyCopy.unit.en} ${latencyCopy.apacAverage.en}`,
+          zh: `${latencyValue} ${latencyCopy.unit.zh} · ${latencyCopy.apacAverage.zh}`,
+        };
+      } else {
+        latency = {
+          en: `${latencyValue} ${latencyCopy.unit.en}`,
+          zh: `${latencyValue} ${latencyCopy.unit.zh}`,
+        };
+      }
+
+      return {
+        id: dc.id,
+        hashrate: formatDynamicHashrate(dc.hashrate, hashrateDelta),
+        nodeCount: Math.max(1, dc.nodeCount + nodeDelta),
+        latency,
+        updatedAt: now,
+      };
+    });
+  }, [chainBlockNumber]);
 }
