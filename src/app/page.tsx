@@ -15,6 +15,8 @@ import { ServerPanel } from "@/components/ServerPanel";
 import { datacenters, type Locale } from "@/content/datacenters";
 import { useChainData } from "@/lib/useChainData";
 
+const IS_GITHUB_PAGES = process.env.NEXT_PUBLIC_IS_GITHUB_PAGES === "true";
+
 export default function Home() {
   const [selectedId, setSelectedId] = useState(datacenters[0].id);
   const [locale, setLocale] = useState<Locale>(() => {
@@ -118,6 +120,7 @@ export default function Home() {
           data={chain.data}
           loading={chain.loading}
           error={chain.error}
+          simulated={IS_GITHUB_PAGES}
         />
         <WorldMap locale={locale} selectedId={selectedId} onSelect={handleSelect} onOpenServers={() => setServerPanelOpen(true)} />
         <EcosystemLinks locale={locale} />

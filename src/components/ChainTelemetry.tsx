@@ -45,11 +45,13 @@ export function ChainTelemetry({
   data,
   loading,
   error,
+  simulated = false,
 }: {
   locale: Locale;
   data: ChainData | null;
   loading: boolean;
   error: string | null;
+  simulated?: boolean;
 }) {
   const { ref, inView } = useInView();
   const offline = !loading && (!data || !!error);
@@ -61,6 +63,8 @@ export function ChainTelemetry({
   const txStreamLabel = locale === "zh" ? "交易流" : "0x_TX_STREAM";
   const sectionLabel = locale === "zh" ? "[ NOS 链上遥测 ]" : "[ NOS_RPC_TELEMETRY ]";
   const pagesFallbackLabel = locale === "zh" ? "当前为静态页面部署，链上接口未启用" : "Static deployment mode: chain API unavailable";
+  const simulatedBadgeLabel = locale === "zh" ? "静态演示" : "SIMULATED_FEED";
+  const simulatedHintLabel = locale === "zh" ? "当前为 GitHub Pages 静态演示数据，用于展示链路与界面状态。" : "GitHub Pages is showing a simulated telemetry snapshot for presentation only.";
 
   const stats = data
     ? [
@@ -83,6 +87,19 @@ export function ChainTelemetry({
           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.3em]" style={{ color: "var(--accent-bright)" }}>
             {sectionLabel}
           </p>
+          {simulated && (
+            <div
+              className="inline-flex items-center gap-2 self-start rounded-full border px-3 py-1 font-mono text-[8px] uppercase tracking-[0.25em]"
+              style={{
+                borderColor: "color-mix(in srgb, var(--accent-bright) 32%, transparent)",
+                background: "color-mix(in srgb, var(--accent-bright) 10%, transparent)",
+                color: "var(--accent-bright)",
+              }}
+            >
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent-bright)", boxShadow: "0 0 12px var(--accent-glow)" }} />
+              {simulatedBadgeLabel}
+            </div>
+          )}
           <div className="hidden sm:block h-px flex-1" style={{ background: "var(--border)" }} />
           <div className="flex items-center gap-2">
             <span className={data ? "live-dot" : "h-1.5 w-1.5 rounded-full bg-red-500"} />
@@ -91,6 +108,19 @@ export function ChainTelemetry({
             </span>
           </div>
         </div>
+
+        {simulated && (
+          <div
+            className="stagger-child rounded-2xl border px-4 py-3 text-sm sm:px-5"
+            style={{
+              borderColor: "color-mix(in srgb, var(--accent-bright) 22%, var(--border))",
+              background: "linear-gradient(135deg, color-mix(in srgb, var(--background-elevated) 88%, transparent), color-mix(in srgb, var(--accent) 8%, transparent))",
+              color: "var(--muted)",
+            }}
+          >
+            {simulatedHintLabel}
+          </div>
+        )}
 
         {/* Dense Stat Grid */}
         <div className="stagger-child grid grid-cols-2 gap-px lg:grid-cols-4" style={{ background: "var(--border)" }}>
