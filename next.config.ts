@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   trailingSlash: isGithubPages,
   assetPrefix: isGithubPages ? `/${repoName}` : undefined,
   basePath: isGithubPages ? `/${repoName}` : undefined,
+  env: {
+    NEXT_PUBLIC_IS_GITHUB_PAGES: isGithubPages ? "true" : "false",
+  },
 };
 
 export default nextConfig;

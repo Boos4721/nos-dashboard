@@ -37,6 +37,7 @@ export interface UseChainDataReturn {
 }
 
 const MAX_ACCUMULATED_TXS = 20;
+const IS_GITHUB_PAGES = process.env.NEXT_PUBLIC_IS_GITHUB_PAGES === "true";
 
 export function useChainData(pollIntervalMs = 15000): UseChainDataReturn {
   const [data, setData] = useState<ChainData | null>(null);
@@ -64,6 +65,12 @@ export function useChainData(pollIntervalMs = 15000): UseChainDataReturn {
 
     async function fetchChain() {
       try {
+        if (IS_GITHUB_PAGES) {
+          setData(null);
+          setError("GitHub Pages 模式下未启用链上接口");
+          setLastUpdated(Date.now());
+          return;
+        }
         const res = await fetch("/api/chain", { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = (await res.json()) as ChainData;

@@ -60,6 +60,7 @@ export function ChainTelemetry({
   const blockManifestLabel = locale === "zh" ? "区块清单" : "0x_BLOCK_MANIFEST";
   const txStreamLabel = locale === "zh" ? "交易流" : "0x_TX_STREAM";
   const sectionLabel = locale === "zh" ? "[ NOS 链上遥测 ]" : "[ NOS_RPC_TELEMETRY ]";
+  const pagesFallbackLabel = locale === "zh" ? "当前为静态页面部署，链上接口未启用" : "Static deployment mode: chain API unavailable";
 
   const stats = data
     ? [
@@ -137,7 +138,7 @@ export function ChainTelemetry({
                   </div>
                 ))
               ) : (
-                <div className="h-32 flex items-center justify-center font-mono text-[10px]" style={{ color: "var(--muted-dim)" }}>{waitingLabel}</div>
+                <div className="h-32 flex items-center justify-center font-mono text-[10px] text-center px-4" style={{ color: "var(--muted-dim)" }}>{error === "GitHub Pages 模式下未启用链上接口" ? pagesFallbackLabel : waitingLabel}</div>
               )}
             </div>
           </div>
@@ -188,7 +189,7 @@ export function ChainTelemetry({
                   </div>
                 ))
               ) : (
-                <div className="h-32 flex items-center justify-center font-mono text-[10px]" style={{ color: "var(--muted-dim)" }}>{noRecentTxLabel}</div>
+                <div className="h-32 flex items-center justify-center font-mono text-[10px] text-center px-4" style={{ color: "var(--muted-dim)" }}>{error === "GitHub Pages 模式下未启用链上接口" ? pagesFallbackLabel : noRecentTxLabel}</div>
               )}
             </div>
           </div>

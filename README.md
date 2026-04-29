@@ -142,6 +142,12 @@ npm run start -- --hostname 0.0.0.0 --port 3000
 ### 2. GitHub Pages deployment via CI
 The repo now includes a GitHub Actions workflow for GitHub Pages.
 
+Important limitation:
+- GitHub Pages is a static deployment target
+- the visual dashboard works there
+- the in-repo `/api/chain` route does not run on Pages
+- in Pages mode, the telemetry module falls back to a static-unavailable message instead of hanging or crashing
+
 After pushing to `main`, you can enable Pages in the GitHub repository settings and choose:
 - **Source**: GitHub Actions
 
