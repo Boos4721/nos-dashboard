@@ -219,42 +219,48 @@ export function ServerPanel({
   const servers = serversByDatacenter[datacenter.id] ?? [];
   const panelRef = useRef<HTMLDivElement>(null);
   const [filter, setFilter] = useState<ServerStatus | "all">("all");
+  const [mounted, setMounted] = useState(open);
   const [animateIn, setAnimateIn] = useState(false);
 
   useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
     if (open) {
+      setMounted(true);
       requestAnimationFrame(() => setAnimateIn(true));
     } else {
       setAnimateIn(false);
+      timeoutId = setTimeout(() => setMounted(false), 520);
     }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [open]);
 
-  // Close on Escape
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    if (open) window.addEventListener("keydown", handler);
+    if (mounted) window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [open, onClose]);
+  }, [mounted, onClose]);
 
-  // Lock body scroll when open on mobile
   useEffect(() => {
-    if (open) {
+    if (mounted) {
       document.body.style.overflow = "hidden";
     }
     return () => {
       document.body.style.overflow = "";
     };
-  }, [open]);
+  }, [mounted]);
 
   const filtered = filter === "all" ? servers : servers.filter((s) => s.status === filter);
 
-  if (!open) return null;
+  if (!mounted) return null;
 
   return (
     <>
-      {/* Backdrop */}
       <div
         className="fixed inset-0 z-40 transition-opacity duration-500 lg:hidden"
         style={{
@@ -265,7 +271,6 @@ export function ServerPanel({
         onClick={onClose}
       />
 
-      {/* Panel — drawer on mobile, slide-in from right on desktop */}
       <div
         ref={panelRef}
         className="fixed z-50 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -275,6 +280,7 @@ export function ServerPanel({
           bottom: 0,
           width: "min(92vw, 560px)",
           transform: animateIn ? "translateX(0)" : "translateX(100%)",
+          opacity: animateIn ? 1 : 0.98,
           background: "var(--background)",
           borderLeft: "1px solid var(--panel-border)",
           boxShadow: animateIn ? "-20px 0 60px rgba(0,0,0,0.3)" : "none",
