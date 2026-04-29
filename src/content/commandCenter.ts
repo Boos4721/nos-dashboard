@@ -55,14 +55,70 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
       zh: "链上遥测同步完成，全球控制面已对齐到最新区块窗口。",
     },
   },
+  {
+    level: "warning",
+    code: "COOLING_DRIFT",
+    message: {
+      en: "Yichang compute cluster cooling delta widened. Thermal balancing policy raised fan curve.",
+      zh: "宜昌算力集群冷却温差扩大，系统已提升散热曲线。",
+    },
+  },
+  {
+    level: "info",
+    code: "VALIDATOR_ROTATE",
+    message: {
+      en: "Primary validator quorum rotated successfully with no missed block signatures.",
+      zh: "主验证节点法定集已平滑轮换，未出现缺失签名。",
+    },
+  },
+  {
+    level: "warning",
+    code: "BANDWIDTH_SURGE",
+    message: {
+      en: "Hong Kong public relay observed ingress surge and opened reserve bandwidth lane.",
+      zh: "香港公网中继检测到入口流量突增，已开启备用带宽通道。",
+    },
+  },
+  {
+    level: "critical",
+    code: "STORAGE_REBUILD",
+    message: {
+      en: "Chengdu storage shard entered rebuild mode after integrity threshold alert.",
+      zh: "成都存储分片因完整性阈值告警进入重建模式。",
+    },
+  },
+  {
+    level: "info",
+    code: "EDGE_CACHE_WARM",
+    message: {
+      en: "Regional edge cache warm-up finished and request latency returned to target envelope.",
+      zh: "区域边缘缓存预热完成，请求延迟已回归目标区间。",
+    },
+  },
+  {
+    level: "warning",
+    code: "ACCESS_HANDSHAKE",
+    message: {
+      en: "Secure access layer retried handshake on one ingress segment and restored tunnel continuity.",
+      zh: "安全接入层在单入口段重试握手后已恢复隧道连续性。",
+    },
+  },
+  {
+    level: "info",
+    code: "CONTROL_RELAY",
+    message: {
+      en: "Command relay heartbeat stabilized across the cross-region ops fabric.",
+      zh: "跨区域运维链路的控制中继心跳已恢复稳定。",
+    },
+  },
 ];
 
 export function buildCommandCenterEvents(blockNumber?: number) {
   const seed = blockNumber ?? Math.floor(Date.now() / 15000);
 
-  return Array.from({ length: 4 }, (_, index) => {
+  return Array.from({ length: 8 }, (_, index) => {
     const source = eventPool[(seed + index) % eventPool.length];
-    const minutesAgo = (seed + index * 3) % 11;
+    const minutesAgo = (seed + index * 2) % 17;
 
     return {
       ...source,

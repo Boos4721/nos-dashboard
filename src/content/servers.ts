@@ -21,6 +21,13 @@ export type Server = {
   powerWatts: number;
   uptime: string;
   lastSeen: string;
+  rack: string;
+  ip: string;
+  kernel: string;
+  serviceWindow: string;
+  bandwidthGbps: number;
+  workload: string;
+  notes: string;
 };
 
 function rng(seed: number) {
@@ -42,8 +49,26 @@ function generateServers(dcId: string, count: number): Server[] {
     "Edge Proxy",
   ];
 
-  const seed =
-    dcId.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0) * 137;
+  const workloads = [
+    "route mesh balancing",
+    "telemetry ingest",
+    "validator sequencing",
+    "secure access relay",
+    "edge cache orchestration",
+    "storage shard recovery",
+    "inference request routing",
+  ];
+
+  const notes = [
+    "thermal envelope stable",
+    "reserved for peak window",
+    "under redundancy watch",
+    "eligible for traffic failover",
+    "latency baseline healthy",
+    "operating inside reserve band",
+  ];
+
+  const seed = dcId.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0) * 137;
   const rand = rng(seed);
 
   return Array.from({ length: count }, (_, i) => {
@@ -90,6 +115,13 @@ function generateServers(dcId: string, count: number): Server[] {
               minute: "2-digit",
               hour12: false,
             }),
+      rack: `R-${Math.floor(rand() * 8) + 1}-${Math.floor(rand() * 24) + 1}`,
+      ip: `10.${Math.floor(rand() * 30) + 10}.${Math.floor(rand() * 200) + 20}.${Math.floor(rand() * 220) + 10}`,
+      kernel: rand() > 0.5 ? "Linux 6.8 LTS" : "Linux 6.6 LTS",
+      serviceWindow: rand() > 0.6 ? "02:00-04:00 UTC" : "No active maintenance window",
+      bandwidthGbps: Math.round((20 + rand() * 180) * 10) / 10,
+      workload: workloads[Math.floor(rand() * workloads.length)],
+      notes: notes[Math.floor(rand() * notes.length)],
     };
   });
 }
