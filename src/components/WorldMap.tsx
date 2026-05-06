@@ -184,6 +184,7 @@ export function WorldMap({
   }, [projection]);
 
   const mapTitle = locale === "zh" ? "[ 全球运维地图 ]" : "[ GLOBAL_OPERATIONS_MAP ]";
+  const isMobile = dimensions.width < 500;
   const routeCapacity = telemetryDemo.routeCapacity;
   const signalArc = telemetryDemo.signalArc;
   const pulseLatency = telemetryDemo.pulseLatencyMs;
@@ -239,7 +240,7 @@ export function WorldMap({
           <div className="scanline pointer-events-none absolute inset-0 z-10" />
 
           {/* Status badges — top right */}
-          <div className="pointer-events-none absolute right-4 top-4 z-20 flex flex-wrap items-center gap-2">
+          <div className="pointer-events-none absolute right-3 top-3 z-20 hidden items-center gap-1.5 sm:right-4 sm:top-4 sm:flex sm:flex-wrap sm:gap-2">
             <span
               className="rounded-full border px-2.5 py-1 font-mono text-[8px] tracking-[0.24em]"
               style={{ borderColor: "rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.05)", color: "var(--accent-bright)" }}
@@ -259,17 +260,26 @@ export function WorldMap({
               {t(mapStatusCopy.commandCenter, locale)}
             </span>
           </div>
+          {/* Mobile-only compact status */}
+          <div className="pointer-events-none absolute right-3 top-3 z-20 flex sm:hidden">
+            <span
+              className="rounded-full border px-2 py-0.5 font-mono text-[7px] tracking-[0.2em]"
+              style={{ borderColor: "rgba(255,255,255,0.1)", background: "rgba(0,0,0,0.5)", color: "var(--accent-bright)", backdropFilter: "blur(4px)" }}
+            >
+              ● LIVE
+            </span>
+          </div>
 
           {/* Selected node info — bottom left overlay */}
-          <div className="pointer-events-none absolute bottom-4 left-4 z-20">
+          <div className="pointer-events-none absolute bottom-3 left-3 z-20 sm:bottom-4 sm:left-4">
             <div
-              className="rounded-lg border px-4 py-3"
+              className="rounded-lg border px-3 py-2 sm:px-4 sm:py-3"
               style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.6)", backdropFilter: "blur(8px)" }}
             >
-              <p className="font-mono text-[8px] tracking-[0.2em]" style={{ color: "var(--muted)" }}>
+              <p className="font-mono text-[7px] tracking-[0.2em] sm:text-[8px]" style={{ color: "var(--muted)" }}>
                 {t(mapStatusCopy.selectedHub, locale)}
               </p>
-              <p className="mt-1 text-sm font-light" style={{ color: "var(--heading)" }}>
+              <p className="mt-1 text-xs font-light sm:text-sm" style={{ color: "var(--heading)" }}>
                 {t(selected.name, locale)}
               </p>
               <p className="mt-0.5 font-mono text-[9px]" style={{ color: "var(--muted)" }}>
@@ -440,7 +450,7 @@ export function WorldMap({
       </div>
 
       {/* ─── Datacenter Cards Grid ─── */}
-      <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 sm:pt-8 lg:px-10 lg:pt-10">
+      <div className="mx-auto max-w-7xl px-3 pt-4 sm:px-4 sm:pt-6 lg:px-10 lg:pt-10">
         <div className="stagger-child grid grid-cols-2 gap-px sm:grid-cols-4" style={{ background: "var(--border)" }}>
           {datacenters.map((dc) => {
             const isActive = dc.id === selected.id;
@@ -450,7 +460,7 @@ export function WorldMap({
               <button
                 key={dc.id}
                 onClick={() => onSelect(dc.id)}
-                className="p-4 sm:p-5 text-left transition-colors group"
+                className="p-3 sm:p-4 lg:p-5 text-left transition-colors group"
                 style={{ background: isActive ? "var(--accent-glow)" : "var(--background-elevated)" }}
                 onMouseEnter={(e) => { if (!isActive) (e.currentTarget as HTMLElement).style.background = "var(--background-surface-hover)"; }}
                 onMouseLeave={(e) => { if (!isActive) (e.currentTarget as HTMLElement).style.background = "var(--background-elevated)"; }}
@@ -479,7 +489,7 @@ export function WorldMap({
                 </p>
 
                 {/* Metrics grid */}
-                <div className="grid grid-cols-2 gap-x-3 gap-y-2">
+                <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 sm:gap-x-3 sm:gap-y-2">
                   <div>
                     <p className="font-mono text-[7px]" style={{ color: "var(--muted)" }}>
                       {t(mapMetricLabels.hashrate, locale)}
@@ -515,7 +525,7 @@ export function WorldMap({
                 </div>
 
                 {/* Tags */}
-                <div className="mt-3 flex flex-wrap gap-1">
+                <div className="mt-2 hidden flex-wrap gap-1 sm:flex">
                   {dc.tags.slice(0, 2).map((tag) => (
                     <span
                       key={t(tag, locale)}
@@ -533,8 +543,8 @@ export function WorldMap({
       </div>
 
       {/* ─── Telemetry Row ─── */}
-      <div className="mx-auto max-w-7xl px-4 pt-6 pb-12 sm:px-6 sm:pt-8 sm:pb-16 lg:px-10 lg:pt-10 lg:pb-24">
-        <div className="stagger-child grid gap-px sm:grid-cols-4" style={{ background: "var(--border)" }}>
+      <div className="mx-auto max-w-7xl px-3 pt-4 pb-10 sm:px-4 sm:pt-6 sm:pb-12 lg:px-10 lg:pt-10 lg:pb-24">
+        <div className="stagger-child grid grid-cols-2 gap-px sm:grid-cols-4" style={{ background: "var(--border)" }}>
           {[
             { label: t(mapStatusCopy.routeCapacity, locale), value: `${routeCapacity}%`, color: "var(--heading)" },
             { label: t(mapStatusCopy.telemetry, locale), value: t(mapStatusCopy.online, locale), color: "var(--accent-bright)" },
@@ -543,7 +553,7 @@ export function WorldMap({
           ].map((item) => (
             <div
               key={item.label}
-              className="p-4 sm:p-5 relative overflow-hidden"
+              className="p-3 sm:p-4 lg:p-5 relative overflow-hidden"
               style={{ background: "var(--background-elevated)" }}
             >
               <p className="font-mono text-[8px] tracking-[0.2em]" style={{ color: "var(--muted)" }}>
@@ -557,10 +567,10 @@ export function WorldMap({
         </div>
 
         {/* View Servers CTA */}
-        <div className="mt-6 flex justify-center">
+        <div className="mt-5 flex justify-center sm:mt-6">
           <button
             onClick={onOpenServers}
-            className="flex items-center justify-center gap-2 rounded-md border px-8 py-2.5 font-mono text-[10px] font-bold uppercase tracking-widest transition-all"
+            className="flex w-full items-center justify-center gap-2 rounded-md border px-6 py-2.5 font-mono text-[10px] font-bold uppercase tracking-widest transition-all sm:w-auto sm:px-8"
             style={{
               borderColor: "var(--border-accent)",
               color: "var(--accent-bright)",
