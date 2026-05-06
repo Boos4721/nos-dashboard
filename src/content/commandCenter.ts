@@ -19,7 +19,7 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
     level: "warning",
     code: "LATENCY_SPIKE",
     message: {
-      en: "Hangzhou edge ingress latency rose above baseline and auto-routed to backup mesh.",
+      en: "Zhejiang edge ingress latency rose above baseline and auto-routed to backup mesh.",
       zh: "杭州边缘入口延迟高于基线，系统已自动切换到备用链路。",
     },
   },
@@ -27,7 +27,7 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
     level: "critical",
     code: "POWER_BAND",
     message: {
-      en: "Karamay backbone entered constrained power band. Capacity throttling policy engaged.",
+      en: "Xinjiang backbone entered constrained power band. Capacity throttling policy engaged.",
       zh: "克拉玛依骨干进入功耗约束带，已启用容量节流策略。",
     },
   },
@@ -43,7 +43,7 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
     level: "warning",
     code: "ROUTE_SHIFT",
     message: {
-      en: "Bangkok relay accepted overflow traffic from Hong Kong public route mesh.",
+      en: "Thailand relay accepted overflow traffic from Hong Kong public route mesh.",
       zh: "曼谷中继已承接来自香港公网链路的溢出流量。",
     },
   },
@@ -59,7 +59,7 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
     level: "warning",
     code: "COOLING_DRIFT",
     message: {
-      en: "Yichang compute cluster cooling delta widened. Thermal balancing policy raised fan curve.",
+      en: "Hubei compute cluster cooling delta widened. Thermal balancing policy raised fan curve.",
       zh: "宜昌算力集群冷却温差扩大，系统已提升散热曲线。",
     },
   },
@@ -83,7 +83,7 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
     level: "critical",
     code: "STORAGE_REBUILD",
     message: {
-      en: "Chengdu storage shard entered rebuild mode after integrity threshold alert.",
+      en: "Sichuan storage shard entered rebuild mode after integrity threshold alert.",
       zh: "成都存储分片因完整性阈值告警进入重建模式。",
     },
   },

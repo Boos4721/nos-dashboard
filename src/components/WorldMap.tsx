@@ -21,8 +21,8 @@ const regionLines: RegionLine[] = [
   { from: "xinjiang", to: "hubei" },
   { from: "shandong", to: "hong-kong" },
   { from: "hubei", to: "singapore" },
-  { from: "hong-kong", to: "bangkok" },
-  { from: "singapore", to: "bangkok" },
+  { from: "hong-kong", to: "thailand" },
+  { from: "singapore", to: "thailand" },
   { from: "hubei", to: "zhejiang" },
   { from: "zhejiang", to: "hong-kong" },
   { from: "hubei", to: "sichuan" },
@@ -30,6 +30,7 @@ const regionLines: RegionLine[] = [
   { from: "hong-kong", to: "germany" },
   { from: "germany", to: "france" },
   { from: "singapore", to: "germany" },
+  { from: "singapore", to: "malaysia" },
 ];
 
 /* ── Copy ──────────────────────────────────────────────────────── */

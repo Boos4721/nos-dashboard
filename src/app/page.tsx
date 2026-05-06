@@ -18,12 +18,12 @@ import { buildCommandCenterEvents, buildCommandCenterSignals } from "@/content/c
 import { useChainData } from "@/lib/useChainData";
 
 const IS_GITHUB_PAGES = process.env.NEXT_PUBLIC_IS_GITHUB_PAGES === "true";
-const HERO_MAIN_HUB: LocalizedText = { en: "Yichang Core Hub", zh: "宜昌主枢纽" };
+const HERO_MAIN_HUB: LocalizedText = { en: "Hubei Core Hub", zh: "湖北主枢纽" };
 
 const HERO_DEMO_HUBS: LocalizedText[] = [
   HERO_MAIN_HUB,
-  { en: "Karamay Backbone", zh: "克拉玛依骨干" },
-  { en: "Hangzhou Edge Ingress", zh: "杭州边缘入口" },
+  { en: "Xinjiang Backbone", zh: "新疆骨干" },
+  { en: "Zhejiang Edge Ingress", zh: "浙江边缘入口" },
   { en: "Hong Kong Public Relay", zh: "香港公网中继" },
   { en: "Singapore Global Gateway", zh: "新加坡国际接入" },
 ];

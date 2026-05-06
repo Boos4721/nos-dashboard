@@ -30,9 +30,9 @@ const BASE_ROUTE_CAPACITY = 93;
 const BASE_SIGNAL_ARC = 88;
 const BASE_PULSE_LATENCY = 71;
 const DEMO_HUBS = [
-  { en: "Yichang Core Hub", zh: "宜昌主枢纽" },
-  { en: "Karamay Backbone", zh: "克拉玛依骨干" },
-  { en: "Hangzhou Edge Ingress", zh: "杭州边缘入口" },
+  { en: "Hubei Core Hub", zh: "湖北主枢纽" },
+  { en: "Xinjiang Backbone", zh: "新疆骨干" },
+  { en: "Zhejiang Edge Ingress", zh: "浙江边缘入口" },
   { en: "Hong Kong Public Relay", zh: "香港公网中继" },
   { en: "Singapore Global Gateway", zh: "新加坡国际接入" },
 ] as const;

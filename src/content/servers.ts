@@ -132,7 +132,7 @@ export const serversByDatacenter: Record<string, Server[]> = {
   kelamayi: generateServers("kelamayi", 20),
   singapore: generateServers("singapore", 16),
   "hong-kong": generateServers("hong-kong", 15),
-  bangkok: generateServers("bangkok", 13),
+  thailand: generateServers("thailand", 13),
   chengdu: generateServers("chengdu", 19),
   hangzhou: generateServers("hangzhou", 17),
 };
