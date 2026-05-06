@@ -11,7 +11,7 @@ export const siteContent = {
     { label: { en: "Access", zh: "访问" }, href: "#access" },
   ],
   hero: {
-    eyebrow: { en: "NOS Global Operations", zh: "NOS 全球运维" },
+    eyebrow: { en: "NoteCloud Compute", zh: "笔记云算力" },
     title: {
       en: "A public network view for NOS compute, blocks, and global machine rooms.",
       zh: "一个面向公网的 NOS 网络视图，覆盖算力、区块与全球机房。",

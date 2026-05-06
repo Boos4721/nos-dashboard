@@ -25,7 +25,7 @@ const copy: Record<Locale, {
   protocol: string;
 }> = {
   zh: {
-    title: "NOS 控制中枢",
+    title: "笔记云算力中心",
     stage: ["系统唤醒", "节点连线", "中枢接管", "已就绪"],
     sequence: [
       "唤醒 NOS 链核心",
@@ -45,7 +45,7 @@ const copy: Record<Locale, {
     protocol: "全球节点链路校准中",
   },
   en: {
-    title: "NOS CONTROL CENTER",
+    title: "NOTECLOUD COMPUTE CENTER",
     stage: ["SYSTEM WAKE", "NODE LINKUP", "CONTROL HANDOFF", "READY"],
     sequence: [
       "WAKING THE NOS CHAIN CORE",

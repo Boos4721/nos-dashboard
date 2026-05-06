@@ -96,7 +96,7 @@ export function HeroSection({
                   </>
                 ) : (
                   <>
-                    <span className="glow-text" style={{ color: "var(--accent-bright)" }}>NOS</span> 运维中心
+                    <span className="glow-text" style={{ color: "var(--accent-bright)" }}>笔记云</span>算力中心
                   </>
                 )}
               </h1>
