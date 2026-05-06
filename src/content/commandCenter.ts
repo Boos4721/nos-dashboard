@@ -114,11 +114,11 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
 ];
 
 export function buildCommandCenterEvents(blockNumber?: number) {
-  const seed = blockNumber ?? Math.floor(Date.now() / 15000);
+  const seed = Math.floor(Date.now() / 480000);
 
   return Array.from({ length: 8 }, (_, index) => {
     const source = eventPool[(seed + index) % eventPool.length];
-    const minutesAgo = (seed + index * 2) % 17;
+    const minutesAgo = (seed + index * 3) % 10 + 1;
 
     return {
       ...source,
@@ -129,7 +129,7 @@ export function buildCommandCenterEvents(blockNumber?: number) {
 }
 
 export function buildCommandCenterSignals(locale: Locale, blockNumber?: number): CommandCenterSignal[] {
-  const seed = blockNumber ?? Math.floor(Date.now() / 15000);
+  const seed = Math.floor(Date.now() / 480000);
   const flow = 92 + (seed % 6);
   const alertCount = 2 + (seed % 3);
   const response = 38 + (seed % 9);
