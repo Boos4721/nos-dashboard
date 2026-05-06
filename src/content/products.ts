@@ -78,6 +78,20 @@ export const products: ProductLink[] = [
     ],
   },
   {
+    name: { en: "SRE Panel", zh: "运维面板" },
+    href: "https://sre.aibo.lol",
+    label: { en: "Operations panel", zh: "运维面板" },
+    summary: {
+      en: "Infrastructure operations panel for real-time monitoring, alerting, and incident management across all compute nodes.",
+      zh: "基础设施运维面板，用于全网算力节点的实时监控、告警与事件管理。",
+    },
+    points: [
+      { en: "Real-time monitoring", zh: "实时监控" },
+      { en: "Alert & incident management", zh: "告警与事件管理" },
+      { en: "Infrastructure visibility", zh: "基础设施可视化" },
+    ],
+  },
+  {
     name: { en: "NOS Whitepaper", zh: "NOS 白皮书" },
     href: "https://notes-82.gitbook.io/nos-whitepaper",
     label: { en: "Technical whitepaper", zh: "技术白皮书" },
