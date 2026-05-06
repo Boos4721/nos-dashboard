@@ -216,12 +216,54 @@ export const datacenters: Datacenter[] = [
     latency: { en: "9 ms intra-region", zh: "9 毫秒 · 区域内" },
     powerMix: { en: "Grid + renewable", zh: "电网 + 新能源" },
   },
+  {
+    id: "germany",
+    name: { en: "Germany", zh: "德国" },
+    region: { en: "Europe", zh: "欧洲" },
+    country: { en: "Germany", zh: "德国" },
+    coordinates: [8.6821, 50.1109],
+    hashrate: "5.8 PH/s",
+    nodeCount: 48,
+    status: "expanding",
+    tags: [
+      { en: "Compute", zh: "算力" },
+      { en: "EU Gateway", zh: "欧盟网关" },
+      { en: "Backbone", zh: "骨干节点" },
+    ],
+    notes: {
+      en: "Frankfurt hub serving EU compute workloads, low-latency relay for European operators and cross-Atlantic backbone.",
+      zh: "法兰福枢纽服务欧盟算力负载，面向欧洲运营者的低延迟中继与跨大西洋骨干。",
+    },
+    latency: { en: "12 ms intra-region", zh: "12 毫秒 · 区域内" },
+    powerMix: { en: "Green energy", zh: "绿色能源" },
+  },
+  {
+    id: "france",
+    name: { en: "France", zh: "法国" },
+    region: { en: "Europe", zh: "欧洲" },
+    country: { en: "France", zh: "法国" },
+    coordinates: [2.3522, 48.8566],
+    hashrate: "3.2 PH/s",
+    nodeCount: 28,
+    status: "stable",
+    tags: [
+      { en: "Edge Node", zh: "边缘节点" },
+      { en: "API Relay", zh: "API 中继" },
+      { en: "Public Access", zh: "公网访问" },
+    ],
+    notes: {
+      en: "Paris edge cluster providing EU API relay, public access surface, and Mediterranean corridor connectivity.",
+      zh: "巴黎边缘集群提供欧盟 API 中继、公网访问面与地中海走廊互联。",
+    },
+    latency: { en: "15 ms regional", zh: "15 毫秒 · 区域级" },
+    powerMix: { en: "Nuclear + wind", zh: "核能 + 风电" },
+  },
 ];
 
 export const networkSummary = {
-  totalHashrate: "52.2 PH/s",
-  totalNodes: 502,
-  activeRegions: 8,
+  totalHashrate: "61.2 PH/s",
+  totalNodes: 578,
+  activeRegions: 10,
   publicSurfaces: 4,
 };
 
@@ -232,30 +274,36 @@ const regionLatencyRange: Record<string, [number, number]> = {
   singapore: [45, 54],
   "hong-kong": [18, 26],
   bangkok: [51, 60],
-  chengdu: [12, 18],
-  hangzhou: [8, 13],
+  sichuan: [12, 18],
+  zhejiang: [8, 13],
+  germany: [10, 16],
+  france: [13, 19],
 };
 
 const regionHashrateVariance: Record<string, number> = {
-  yichang: 0.35,
+  hubei: 0.45,
   shandong: 0.42,
   xinjiang: 0.6,
   singapore: 0.18,
   "hong-kong": 0.12,
   bangkok: 0.1,
-  chengdu: 0.32,
-  hangzhou: 0.28,
+  sichuan: 0.48,
+  zhejiang: 0.38,
+  germany: 0.35,
+  france: 0.22,
 };
 
 const regionNodeVariance: Record<string, number> = {
-  yichang: 3,
+  hubei: 4,
   shandong: 3,
   xinjiang: 5,
   singapore: 2,
   "hong-kong": 1,
   bangkok: 1,
-  chengdu: 3,
-  hangzhou: 2,
+  sichuan: 4,
+  zhejiang: 3,
+  germany: 3,
+  france: 2,
 };
 
 function seededJitter(seed: string, bucketMs: number) {

@@ -27,6 +27,9 @@ const regionLines: RegionLine[] = [
   { from: "zhejiang", to: "hong-kong" },
   { from: "hubei", to: "sichuan" },
   { from: "sichuan", to: "xinjiang" },
+  { from: "hong-kong", to: "germany" },
+  { from: "germany", to: "france" },
+  { from: "singapore", to: "germany" },
 ];
 
 /* ── Copy ──────────────────────────────────────────────────────── */
@@ -102,14 +105,14 @@ export function WorldMap({
 
   /* ── Map dimensions ── */
   const mapW = vw;
-  const mapH = isMobile ? Math.round(mapW * 0.65) : isTablet ? Math.round(mapW * 0.5) : Math.round(mapW * 0.45);
+  const mapH = isMobile ? Math.round(mapW * 0.7) : isTablet ? Math.round(mapW * 0.55) : Math.round(mapW * 0.5);
 
-  /* ── Projection — global view centered to show all continents ── */
+  /* ── Projection — full world view ── */
   const { proj, pathGen } = useMemo(() => {
     const p = geoMercator()
-      .center([55, 24])
-      .scale(mapW * (isMobile ? 0.58 : isTablet ? 0.52 : 0.48))
-      .translate([mapW / 2, mapH / 2]);
+      .center([15, 18])
+      .scale(mapW * (isMobile ? 0.11 : isTablet ? 0.1 : 0.095))
+      .translate([mapW / 2, mapH * 0.48]);
     return { proj: p, pathGen: geoPath(p) };
   }, [mapW, mapH, isMobile, isTablet]);
 
@@ -132,17 +135,17 @@ export function WorldMap({
 
   /* ── Fluid font sizes ── */
   const fs = {
-    title: isMobile ? 12 : isTablet ? 14 : 16,
-    badge: isMobile ? 9 : 10,
-    label: isMobile ? 8 : 9,
-    overlayTitle: isMobile ? 14 : isTablet ? 16 : 18,
-    overlaySub: isMobile ? 9 : 10,
-    overlayVal: isMobile ? 12 : isTablet ? 13 : 14,
-    cardTitle: isMobile ? 11 : isTablet ? 12 : 13,
-    cardLabel: isMobile ? 8 : 9,
-    cardVal: isMobile ? 13 : isTablet ? 15 : 16,
-    teleLabel: isMobile ? 9 : 10,
-    teleVal: isMobile ? 20 : isTablet ? 24 : 28,
+    title: isMobile ? 14 : isTablet ? 16 : 18,
+    badge: isMobile ? 11 : 12,
+    label: isMobile ? 10 : 11,
+    overlayTitle: isMobile ? 16 : isTablet ? 18 : 22,
+    overlaySub: isMobile ? 11 : 12,
+    overlayVal: isMobile ? 14 : isTablet ? 15 : 16,
+    cardTitle: isMobile ? 13 : isTablet ? 14 : 15,
+    cardLabel: isMobile ? 10 : 11,
+    cardVal: isMobile ? 16 : isTablet ? 18 : 20,
+    teleLabel: isMobile ? 11 : 12,
+    teleVal: isMobile ? 24 : isTablet ? 28 : 32,
   };
 
   /* ── Marker sizing ── */
@@ -180,7 +183,7 @@ export function WorldMap({
                 {locale === "zh" ? "节点" : "NODES"}: {datacenters.length}
               </span>
               <span className="font-mono" style={{ fontSize: fs.badge, color: "var(--muted)" }}>
-                {locale === "zh" ? "区域" : "REGIONS"}: 08
+                {locale === "zh" ? "区域" : "REGIONS"}: 10
               </span>
             </div>
           )}
@@ -207,7 +210,7 @@ export function WorldMap({
           <div className="pointer-events-none absolute right-3 top-3 z-20">
             <span className="rounded-full border px-2 py-0.5 font-mono tracking-[0.16em]"
               style={{
-                fontSize: 10, borderColor: "rgba(255,255,255,0.08)",
+                fontSize: 13, borderColor: "rgba(255,255,255,0.08)",
                 background: "rgba(0,0,0,0.5)", color: "var(--accent-bright)",
                 backdropFilter: "blur(4px)",
               }}>
@@ -349,7 +352,7 @@ export function WorldMap({
                 {active && !isMobile && (
                   <text x={n.x + 10} y={n.y + 3} fill="var(--heading)"
                     className="font-mono font-bold tracking-tighter"
-                    style={{ fontSize: "12px", textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>
+                    style={{ fontSize: "14px", textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>
                     {t(n.name, locale)}
                   </text>
                 )}
@@ -388,7 +391,7 @@ export function WorldMap({
                 style={{ fontSize: fs.overlayVal, color: "var(--accent-bright)" }}>
                 {selDyn?.hashrate ?? sel.hashrate}
               </span>
-              <span className="font-mono" style={{ fontSize: 10, color: "var(--muted)" }}>·</span>
+              <span className="font-mono" style={{ fontSize: 12, color: "var(--muted)" }}>·</span>
               <span className="font-mono"
                 style={{ fontSize: fs.overlayVal, color: "var(--cyan)" }}>
                 {t(selDyn?.latency ?? sel.latency, locale)}
@@ -429,13 +432,13 @@ export function WorldMap({
                   </p>
                   <div className="mt-1 flex gap-3">
                     <div>
-                      <p className="font-mono" style={{ fontSize: 8, color: "var(--muted)" }}>{t(M.hr, locale)}</p>
+                      <p className="font-mono" style={{ fontSize: 10, color: "var(--muted)" }}>{t(M.hr, locale)}</p>
                       <p className="font-mono font-medium" style={{ fontSize: fs.cardVal, color: "var(--heading)" }}>
                         {d?.hashrate ?? dc.hashrate}
                       </p>
                     </div>
                     <div>
-                      <p className="font-mono" style={{ fontSize: 8, color: "var(--muted)" }}>{t(M.nodes, locale)}</p>
+                      <p className="font-mono" style={{ fontSize: 10, color: "var(--muted)" }}>{t(M.nodes, locale)}</p>
                       <p className="font-mono font-medium" style={{ fontSize: fs.cardVal, color: "var(--heading)" }}>
                         {d?.nodeCount ?? dc.nodeCount}
                       </p>
@@ -450,7 +453,7 @@ export function WorldMap({
           <div className="mx-auto grid gap-px"
             style={{
               maxWidth: isWide ? 1536 : "100%",
-              gridTemplateColumns: isTablet ? "repeat(4, 1fr)" : "repeat(8, 1fr)",
+              gridTemplateColumns: isTablet ? "repeat(4, 1fr)" : "repeat(5, 1fr)",
               padding: isTablet ? "0 24px" : "0 32px",
               background: "var(--border)",
             }}>
