@@ -96,7 +96,7 @@ export function HeroSection({
                   </>
                 ) : (
                   <>
-                    <span className="glow-text" style={{ color: "var(--accent-bright)" }}>笔记云</span>算力中心
+                    <span className="glow-text" style={{ color: "var(--accent-bright)" }}>笔记云</span>算力网络
                   </>
                 )}
               </h1>
@@ -198,8 +198,8 @@ export function HeroSection({
               value: locale === "zh" ? "全球链路已加速" : "GLOBAL FABRIC ACCELERATED",
             },
             {
-              label: locale === "zh" ? "交互层" : "INTERACTION_LAYER",
-              value: locale === "zh" ? "双主题 / 动态反馈 / 高密度遥测" : "DUAL THEME / MOTION FEEDBACK / DENSE TELEMETRY",
+              label: locale === "zh" ? "云资源" : "CLOUD_RESOURCES",
+              value: locale === "zh" ? "笔记云 / AI算力调度中心" : "NOTECLOUD / AI COMPUTE DISPATCH",
             },
             {
               label: locale === "zh" ? "接入策略" : "ACCESS_STRATEGY",

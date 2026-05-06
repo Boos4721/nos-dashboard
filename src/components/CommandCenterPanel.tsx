@@ -43,7 +43,7 @@ export function CommandCenterPanel({
   events: CommandCenterEvent[];
 }) {
   const { ref, inView } = useInView();
-  const title = locale === "zh" ? "[ 算力调度态势 ]" : "[ COMPUTE_DISPATCH_SURFACE ]";
+  const title = locale === "zh" ? "[ 调度中心概览 ]" : "[ DISPATCH_CENTER_OVERVIEW ]";
   const eventLabel = locale === "zh" ? "事件流" : "EVENT_STREAM";
   const pulseLabel = locale === "zh" ? "实时脉冲" : "TACTICAL_PULSE";
   const layerLabel = locale === "zh" ? "全局协同" : "GLOBAL_ORCHESTRATION";
