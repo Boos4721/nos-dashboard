@@ -107,7 +107,7 @@ export function HeroSection({
                 {sectorLabel}
               </span>
               <span className="rounded-full border px-3 py-1 font-mono text-[12px] tracking-[0.24em]" style={{ borderColor: "rgba(255,255,255,0.08)", color: "var(--cyan)", background: "rgba(255,255,255,0.025)" }}>
-                {locale === "zh" ? "链上遥测 + 指挥中心 + 全球节点" : "CHAIN TELEMETRY + COMMAND CENTER + GLOBAL NODES"}
+                {locale === "zh" ? "链上遥测 + 算力调度 + 全球节点" : "CHAIN TELEMETRY + COMPUTE DISPATCH + GLOBAL NODES"}
               </span>
             </div>
 

@@ -39,7 +39,7 @@ const M = {
   title:      { en: "[ GLOBAL_OPERATIONS_MAP ]", zh: "[ 全球运维地图 ]" },
   liveMatrix: { en: "LIVE NETWORK MATRIX", zh: "实时网络矩阵" },
   routeMesh:  { en: "ROUTE MESH", zh: "链路拓扑" },
-  cmdCenter:  { en: "COMMAND CENTER", zh: "指挥中心" },
+  cmdCenter:  { en: "COMPUTE DISPATCH", zh: "算力调度" },
   hub:        { en: "SELECTED HUB", zh: "当前节点" },
   online:     { en: "ONLINE", zh: "在线" },
   hr:         { en: "HASHRATE", zh: "算力" },

@@ -41,7 +41,7 @@ const copy: Record<Locale, {
     version: "v0.1 / nos-chain-boot",
     fabric: "网络已联通",
     core: "核心：0x4E4F53",
-    mode: "指挥中枢正在上线",
+    mode: "算力调度正在上线",
     protocol: "全球节点链路校准中",
   },
   en: {
@@ -61,7 +61,7 @@ const copy: Record<Locale, {
     version: "v0.1 / nos-chain-boot",
     fabric: "FABRIC ONLINE",
     core: "CORE: 0x4E4F53",
-    mode: "COMMAND CENTER COMING ONLINE",
+    mode: "COMPUTE DISPATCH COMING ONLINE",
     protocol: "CALIBRATING GLOBAL NODE LINKS",
   },
 };
