@@ -19,7 +19,7 @@ export function Footer({ locale }: { locale: Locale }) {
   const legalLabel = locale === "zh" ? "法务" : "LEGAL";
   const privacyLabel = locale === "zh" ? "隐私政策" : "PRIVACY_POLICY";
   const termsLabel = locale === "zh" ? "服务条款" : "TERMS_OF_SERVICE";
-  const systemsOperationalLabel = locale === "zh" ? "© 2026 NOS_NETWORK // 全系统运行中" : "© 2026 NOS_NETWORK // ALL_SYSTEMS_OPERATIONAL";
+  const systemsOperationalLabel = locale === "zh" ? "© 2026 NOS NETWORK // 全系统运行中" : "© 2026 NOS_NETWORK // ALL_SYSTEMS_OPERATIONAL";
   return (
     <footer className="border-t px-6 py-12 lg:px-10 lg:py-16" style={{ borderColor: "var(--border)", background: "var(--background-elevated)" }}>
       <div className="mx-auto flex max-w-7xl flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">

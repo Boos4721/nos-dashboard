@@ -55,16 +55,16 @@ export function ChainTelemetry({
 }) {
   const { ref, inView } = useInView();
   const offline = !loading && (!data || !!error);
-  const statusLabel = loading ? (locale === "zh" ? "同步中" : "SYNCING") : data ? (locale === "zh" ? "链路已建立" : "LINK_ESTABLISHED") : locale === "zh" ? "链路断开" : "LINK_LOST";
-  const waitingLabel = locale === "zh" ? "等待链上数据..." : "WAITING_FOR_DATA...";
-  const noRecentTxLabel = locale === "zh" ? "暂无最近交易" : "NO_RECENT_TX";
+  const statusLabel = loading ? (locale === "zh" ? "同步中" : "SYNCING") : data ? (locale === "zh" ? "链路已建立" : "LINK_ESTABLISHED") : locale === "zh" ? "链路已断开" : "LINK_LOST";
+  const waitingLabel = locale === "zh" ? "等待链上数据…" : "WAITING_FOR_DATA...";
+  const noRecentTxLabel = locale === "zh" ? "暂无最新交易" : "NO_RECENT_TX";
   const recentSuffix = locale === "zh" ? "条最近记录" : "RECENT";
   const blockManifestLabel = locale === "zh" ? "区块清单" : "0x_BLOCK_MANIFEST";
   const txStreamLabel = locale === "zh" ? "交易流" : "0x_TX_STREAM";
   const sectionLabel = locale === "zh" ? "[ NOS 链上遥测 ]" : "[ NOS_RPC_TELEMETRY ]";
   const pagesFallbackLabel = locale === "zh" ? "当前为静态页面部署，链上接口未启用" : "Static deployment mode: chain API unavailable";
   const simulatedBadgeLabel = locale === "zh" ? "静态演示" : "SIMULATED_FEED";
-  const simulatedHintLabel = locale === "zh" ? "当前为 GitHub Pages 静态演示数据，用于展示链路与界面状态。" : "GitHub Pages is showing a simulated telemetry snapshot for presentation only.";
+  const simulatedHintLabel = locale === "zh" ? "当前展示的是 GitHub Pages 静态演示数据，仅用于呈现链路与界面状态。" : "GitHub Pages is showing a simulated telemetry snapshot for presentation only.";
   const lastSyncLabel = locale === "zh" ? "最后同步" : "LAST_SYNC";
 
   const stats = data
@@ -141,11 +141,11 @@ export function ChainTelemetry({
               </div>
             ))
           ) : (
-            stats.map((m) => (
+            stats.map((m, index) => (
               <div
                 key={m.label}
-                className="group p-5 sm:p-8 transition-colors"
-                style={{ background: "var(--background-elevated)" }}
+                className="group p-5 sm:p-8 transition-colors telemetry-stat-card tilt-hover-card slide-up-enter"
+                style={{ background: "var(--background-elevated)", transitionDelay: `${index * 90}ms` }}
                 onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.background = "var(--background-surface-hover)"}
                 onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.background = "var(--background-elevated)"}
               >
@@ -166,11 +166,11 @@ export function ChainTelemetry({
             <div className="space-y-3 sm:space-y-4">
               {data ? (
                 [
-                  { k: "HASH", v: data.rawBlockHash },
-                  { k: "HEIGHT", v: data.blockNumber.toLocaleString() },
-                  { k: "MINER", v: data.rawMiner },
-                  { k: "GAS_USED", v: `${data.gasUsed.toLocaleString()} / ${data.gasLimit.toLocaleString()}` },
-                  { k: "STAMP", v: formatTimestamp(data.timestamp) },
+                  { k: locale === "zh" ? "哈希" : "HASH", v: data.rawBlockHash },
+                  { k: locale === "zh" ? "高度" : "HEIGHT", v: data.blockNumber.toLocaleString() },
+                  { k: locale === "zh" ? "出块地址" : "MINER", v: data.rawMiner },
+                  { k: locale === "zh" ? "Gas 使用" : "GAS_USED", v: `${data.gasUsed.toLocaleString()} / ${data.gasLimit.toLocaleString()}` },
+                  { k: locale === "zh" ? "时间" : "STAMP", v: formatTimestamp(data.timestamp) },
                 ].map((row) => (
                   <div key={row.k} className="flex flex-col sm:flex-row sm:justify-between border-b pb-2 gap-0.5 sm:gap-0" style={{ borderColor: "var(--border)" }}>
                     <span className="font-mono text-[8px] sm:text-[9px]" style={{ color: "var(--muted)" }}>{row.k}</span>
@@ -218,17 +218,17 @@ export function ChainTelemetry({
                         )}
                       </div>
                       <div className="mt-0.5 flex items-center gap-1.5 text-[9px] font-mono flex-wrap" style={{ color: "var(--muted)" }}>
-                        <span className="opacity-60">BLOCK</span>
+                        <span className="opacity-60">{locale === "zh" ? "区块" : "BLOCK"}</span>
                         <span className="truncate">#{tx.blockNumber?.toLocaleString() ?? "—"}</span>
                         <span className="opacity-30">·</span>
-                        <span className="opacity-60">AMOUNT</span>
+                        <span className="opacity-60">{locale === "zh" ? "数量" : "AMOUNT"}</span>
                         <span>{tx.value ? `${formatValue(tx.value)} NOS` : "0 NOS"}</span>
                       </div>
                       <div className="mt-0.5 flex items-center gap-1.5 text-[9px] font-mono flex-wrap" style={{ color: "var(--muted)" }}>
-                        <span className="opacity-60">FROM</span>
+                        <span className="opacity-60">{locale === "zh" ? "来自" : "FROM"}</span>
                         <span className="truncate max-w-[80px] sm:max-w-[100px]">{shortAddr(tx.from)}</span>
                         <span className="opacity-30">→</span>
-                        <span className="opacity-60">TO</span>
+                        <span className="opacity-60">{locale === "zh" ? "去向" : "TO"}</span>
                         <span className="truncate max-w-[80px] sm:max-w-[100px]">{shortAddr(tx.to)}</span>
                       </div>
                     </div>

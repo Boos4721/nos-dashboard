@@ -18,8 +18,10 @@ import { buildCommandCenterEvents, buildCommandCenterSignals } from "@/content/c
 import { useChainData } from "@/lib/useChainData";
 
 const IS_GITHUB_PAGES = process.env.NEXT_PUBLIC_IS_GITHUB_PAGES === "true";
+const HERO_MAIN_HUB: LocalizedText = { en: "Yichang Core Hub", zh: "宜昌主枢纽" };
+
 const HERO_DEMO_HUBS: LocalizedText[] = [
-  { en: "Yichang Core Hub", zh: "宜昌主枢纽" },
+  HERO_MAIN_HUB,
   { en: "Karamay Backbone", zh: "克拉玛依骨干" },
   { en: "Hangzhou Edge Ingress", zh: "杭州边缘入口" },
   { en: "Hong Kong Public Relay", zh: "香港公网中继" },
@@ -67,9 +69,7 @@ export default function Home() {
 
   const selectedDc = datacenters.find((dc) => dc.id === selectedId) ?? datacenters[0];
   const heroHashrate = IS_GITHUB_PAGES ? "28.8 PH/s" : selectedDc.hashrate;
-  const heroActiveHub = IS_GITHUB_PAGES
-    ? HERO_DEMO_HUBS[Math.floor((chain.lastUpdated ?? Date.now()) / 15000) % HERO_DEMO_HUBS.length][locale]
-    : selectedDc.name[locale];
+  const heroActiveHub = HERO_MAIN_HUB[locale];
   const heroBlockHeight = chain.data?.blockNumber ?? 0;
   const heroUptime = IS_GITHUB_PAGES
     ? "99.987%"
@@ -85,7 +85,11 @@ export default function Home() {
       <div className="noise-overlay" />
       <main
         className="relative min-h-screen overflow-hidden selection:bg-[var(--accent)] selection:text-white"
-        style={{ background: "var(--background)", color: "var(--foreground)" }}
+        style={{
+          background: "var(--background)",
+          color: "var(--foreground)",
+          visibility: chain.loading ? "hidden" : "visible",
+        }}
       >
         <div
           className="scroll-gradient-bg"

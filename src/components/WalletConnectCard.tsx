@@ -40,14 +40,14 @@ function formatChainLabel(chainId: string | null, locale: Locale): string {
 
 function walletCopy(locale: Locale) {
   return {
-    eyebrow: locale === "zh" ? "[ 钱包接入层 ]" : "[ WALLET_ACCESS_LAYER ]",
-    title: locale === "zh" ? "连接钱包进入链上视图。" : "Connect MetaMask for on-chain access.",
+    eyebrow: locale === "zh" ? "[ 钱包接入 ]" : "[ WALLET_ACCESS_LAYER ]",
+    title: locale === "zh" ? "连接钱包，进入链上视图。" : "Connect MetaMask for on-chain access.",
     description:
       locale === "zh"
-        ? "将网页内置钱包连接入口，方便直接进入 NOS 链环境并访问监控与链上交互能力。"
+        ? "通过网页内置的钱包入口，直接接入 NOS 链，进入监控视图并进行链上交互。"
         : "Embed a native MetaMask entry so visitors can connect directly to NOS Chain and unlock monitoring-oriented on-chain interactions.",
-    noProvider: locale === "zh" ? "未检测到钱包插件" : "MetaMask not detected",
-    providerReady: locale === "zh" ? "钱包插件可用" : "MetaMask available",
+    noProvider: locale === "zh" ? "未检测到钱包" : "MetaMask not detected",
+    providerReady: locale === "zh" ? "钱包已就绪" : "MetaMask available",
     connected: locale === "zh" ? "钱包已连接" : "Wallet connected",
     disconnected: locale === "zh" ? "钱包未连接" : "Wallet disconnected",
     connect: locale === "zh" ? "连接钱包" : "Connect MetaMask",
@@ -55,17 +55,17 @@ function walletCopy(locale: Locale) {
     install: locale === "zh" ? "安装钱包插件" : "Install MetaMask",
     switchNetwork: locale === "zh" ? "切换到 NOS 链" : "Switch to NOS Chain",
     connectedAccount: locale === "zh" ? "已连接地址" : "Connected account",
-    activeNetwork: locale === "zh" ? "当前网络" : "Active network",
+    activeNetwork: locale === "zh" ? "所在网络" : "Active network",
     targetNetwork: locale === "zh" ? "目标网络" : "Target network",
-    chainReady: locale === "zh" ? "已对准 NOS 链" : "Aligned to NOS Chain",
-    chainMismatch: locale === "zh" ? "当前不在 NOS 链" : "Not on NOS Chain",
-    openDapp: locale === "zh" ? "打开监控页面" : "Open Monitor DApp",
+    chainReady: locale === "zh" ? "已切到 NOS 链" : "Aligned to NOS Chain",
+    chainMismatch: locale === "zh" ? "当前未切到 NOS 链" : "Not on NOS Chain",
+    openDapp: locale === "zh" ? "打开监控面板" : "Open Monitor DApp",
     dappHref: "https://wallet.web3s.finance/#/13.node-monitor",
     installHint:
       locale === "zh"
-        ? "当前浏览器没有注入钱包提供器，可先安装钱包插件后再连接。"
+        ? "当前浏览器没有可用的钱包插件，请先安装后再连接。"
         : "No injected wallet provider was found in this browser. Install MetaMask first, then connect.",
-    errorPrefix: locale === "zh" ? "连接异常" : "Connection error",
+    errorPrefix: locale === "zh" ? "连接出错" : "Connection error",
   };
 }
 

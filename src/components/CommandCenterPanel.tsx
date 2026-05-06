@@ -43,10 +43,10 @@ export function CommandCenterPanel({
   events: CommandCenterEvent[];
 }) {
   const { ref, inView } = useInView();
-  const title = locale === "zh" ? "[ 指挥中心态势 ]" : "[ COMMAND_CENTER_SURFACE ]";
+  const title = locale === "zh" ? "[ 指挥中枢态势 ]" : "[ COMMAND_CENTER_SURFACE ]";
   const eventLabel = locale === "zh" ? "事件流" : "EVENT_STREAM";
-  const pulseLabel = locale === "zh" ? "战术脉冲" : "TACTICAL_PULSE";
-  const layerLabel = locale === "zh" ? "全域协同" : "GLOBAL_ORCHESTRATION";
+  const pulseLabel = locale === "zh" ? "实时脉冲" : "TACTICAL_PULSE";
+  const layerLabel = locale === "zh" ? "全局协同" : "GLOBAL_ORCHESTRATION";
 
   return (
     <section
@@ -77,10 +77,10 @@ export function CommandCenterPanel({
           <div className="relative z-10">
             <div className="flex items-center justify-between gap-4">
               <p className="font-mono text-[10px] font-bold tracking-[0.28em]" style={{ color: "var(--muted)" }}>
-                {locale === "zh" ? "信号汇聚" : "SIGNAL_AGGREGATION"}
+                {locale === "zh" ? "信号汇总" : "SIGNAL_AGGREGATION"}
               </p>
               <span className="rounded-full border px-2.5 py-1 font-mono text-[8px] tracking-[0.22em] command-badge" style={{ borderColor: "rgba(255,255,255,0.08)", color: "var(--emerald)" }}>
-                LIVE OPS
+                {locale === "zh" ? "实时运行" : "LIVE OPS"}
               </span>
             </div>
 
@@ -97,9 +97,9 @@ export function CommandCenterPanel({
                     </p>
                     <span className="h-2 w-2 rounded-full command-dot" style={{ background: toneColor(signal.tone), boxShadow: `0 0 16px ${toneColor(signal.tone)}` }} />
                   </div>
-                  <p className="mt-3 font-mono text-[22px] sm:text-[24px]" style={{ color: toneColor(signal.tone) }}>
-                    {signal.value}
-                  </p>
+                  <p className="mt-3 font-mono text-[22px] sm:text-[24px]" style={{ color: toneColor(signal.tone) }} suppressHydrationWarning>
+                   {signal.value}
+                 </p>
                 </div>
               ))}
             </div>
@@ -129,13 +129,13 @@ export function CommandCenterPanel({
 
               <div className="rounded-[22px] border px-4 py-4 command-card" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
                 <p className="font-mono text-[8px] tracking-[0.2em]" style={{ color: "var(--muted)" }}>
-                  {locale === "zh" ? "响应态" : "RESPONSE_STATE"}
+                  {locale === "zh" ? "响应状态" : "RESPONSE_STATE"}
                 </p>
                 <div className="mt-3 space-y-2">
                   {[
-                    locale === "zh" ? "节点拓扑保持同步" : "NODE TOPOLOGY IN SYNC",
+                    locale === "zh" ? "节点拓扑持续同步" : "NODE TOPOLOGY IN SYNC",
                     locale === "zh" ? "路由脉冲持续回传" : "ROUTE PULSE RETURNING",
-                    locale === "zh" ? "链上数据已并流" : "CHAIN SIGNALS MERGED",
+                    locale === "zh" ? "链上信号已完成汇流" : "CHAIN SIGNALS MERGED",
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2 font-mono text-[10px]" style={{ color: "var(--body)" }}>
                       <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--emerald)", boxShadow: "0 0 12px rgba(52,211,153,0.45)" }} />
@@ -157,7 +157,7 @@ export function CommandCenterPanel({
                 {eventLabel}
               </p>
               <span className="rounded-full border px-2.5 py-1 font-mono text-[8px] tracking-[0.22em] command-badge" style={{ borderColor: "rgba(255,255,255,0.08)", color: "var(--accent-bright)" }}>
-                LIVE OPS
+                {locale === "zh" ? "实时运行" : "LIVE OPS"}
               </span>
             </div>
 
@@ -175,7 +175,7 @@ export function CommandCenterPanel({
                         {event.code}
                       </span>
                     </div>
-                    <span className="font-mono text-[8px]" style={{ color: "var(--muted)" }}>
+                    <span className="font-mono text-[8px]" style={{ color: "var(--muted)" }} suppressHydrationWarning>
                       {event.timestamp}
                     </span>
                   </div>

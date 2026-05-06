@@ -7,7 +7,7 @@ import { useInView } from "@/lib/useInView";
 
 export function EcosystemLinks({ locale }: { locale: Locale }) {
   const { ref, inView } = useInView();
-  const sectionLabel = locale === "zh" ? "[ 生态直达入口 ]" : "[ ECOSYSTEM_DIRECT_ROUTING ]";
+  const sectionLabel = locale === "zh" ? "[ 生态入口 ]" : "[ ECOSYSTEM_DIRECT_ROUTING ]";
   const gatewayLabel = locale === "zh" ? "网关：公网 NAT" : "GATEWAY: PUBLIC_NAT";
   return (
     <section id="products" ref={ref as React.RefObject<HTMLElement>} className={`mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24 scroll-reveal ${inView ? "in-view" : ""}`}>
@@ -47,7 +47,7 @@ export function EcosystemLinks({ locale }: { locale: Locale }) {
             </p>
 
             <div className="pt-4 border-t" style={{ borderColor: "var(--border)" }}>
-              <span className="font-mono text-[9px] group-hover:text-[var(--heading)] transition-colors" style={{ color: "var(--muted)" }}>{locale === "zh" ? "访问入口 →" : "ACCESS_ENDPOINT →"}</span>
+              <span className="font-mono text-[9px] group-hover:text-[var(--heading)] transition-colors" style={{ color: "var(--muted)" }}>{locale === "zh" ? "立即前往 →" : "ACCESS_ENDPOINT →"}</span>
             </div>
           </a>
         ))}
