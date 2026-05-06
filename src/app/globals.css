@@ -499,6 +499,35 @@ a:focus-visible {
   text-shadow: 0 0 10px var(--accent-glow);
 }
 
+/* ── Theme-aware glass overlays ── */
+.glass-dark {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--heading);
+}
+[data-theme="light"] .glass-dark {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.glass-badge {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="light"] .glass-badge {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.glass-overlay {
+  background: rgba(0, 0, 0, 0.55);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+[data-theme="light"] .glass-overlay {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
 /* Loading overlay — ambient ring glow */
 @keyframes ring-glow {
   0%, 100% { filter: drop-shadow(0 0 4px rgba(109,93,252,0.15)); }

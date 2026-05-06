@@ -194,12 +194,9 @@ export function WorldMap({
         {isDesktop && (
           <div className="pointer-events-none absolute right-6 top-16 z-20 flex gap-2">
             {[M.liveMatrix, M.routeMesh, M.cmdCenter].map((label, i) => (
-              <span key={i} className="rounded-full border px-2.5 py-1 font-mono tracking-[0.18em]"
+              <span key={i} className="glass-badge rounded-full border px-2.5 py-1 font-mono tracking-[0.18em] backdrop-blur-md"
                 style={{
                   fontSize: fs.badge,
-                  borderColor: "rgba(255,255,255,0.06)",
-                  background: "rgba(0,0,0,0.4)",
-                  backdropFilter: "blur(8px)",
                   color: i === 0 ? "var(--accent-bright)" : i === 2 ? "var(--cyan)" : "var(--muted)",
                 }}>
                 {t(label, locale)}
@@ -209,12 +206,8 @@ export function WorldMap({
         )}
         {isMobile && (
           <div className="pointer-events-none absolute right-3 top-3 z-20">
-            <span className="rounded-full border px-2 py-0.5 font-mono tracking-[0.16em]"
-              style={{
-                fontSize: 13, borderColor: "rgba(255,255,255,0.08)",
-                background: "rgba(0,0,0,0.5)", color: "var(--accent-bright)",
-                backdropFilter: "blur(4px)",
-              }}>
+            <span className="glass-badge rounded-full border px-2 py-0.5 font-mono tracking-[0.16em] backdrop-blur-md"
+              style={{ fontSize: 13, color: "var(--accent-bright)" }}>
               ● LIVE
             </span>
           </div>
@@ -365,11 +358,9 @@ export function WorldMap({
         {/* ── Selected Node Overlay (bottom-left) ── */}
         <div className="pointer-events-none absolute bottom-3 left-3 z-20"
           style={{ bottom: isMobile ? 8 : 12, left: isMobile ? 8 : 16 }}>
-          <div className="rounded-lg border backdrop-blur-xl"
+          <div className="glass-overlay rounded-lg border backdrop-blur-xl"
             style={{
               padding: isMobile ? "8px 10px" : isTablet ? "10px 14px" : "12px 18px",
-              borderColor: "rgba(255,255,255,0.06)",
-              background: "rgba(0,0,0,0.55)",
             }}>
             <p className="font-mono tracking-[0.2em]"
               style={{ fontSize: fs.label, color: "var(--muted)" }}>
