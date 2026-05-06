@@ -77,4 +77,18 @@ export const products: ProductLink[] = [
       { en: "Companion operations view", zh: "配套运维视图" },
     ],
   },
+  {
+    name: { en: "NOS Whitepaper", zh: "NOS 白皮书" },
+    href: "https://notes-82.gitbook.io/nos-whitepaper",
+    label: { en: "Technical whitepaper", zh: "技术白皮书" },
+    summary: {
+      en: "Comprehensive technical whitepaper covering NOS chain architecture, consensus mechanism, tokenomics, and ecosystem roadmap.",
+      zh: "涵盖 NOS 链架构、共识机制、代币经济与生态路线图的完整技术白皮书。",
+    },
+    points: [
+      { en: "Chain architecture", zh: "链架构详解" },
+      { en: "Consensus & tokenomics", zh: "共识与代币经济" },
+      { en: "Ecosystem roadmap", zh: "生态路线图" },
+    ],
+  },
 ];
