@@ -279,12 +279,33 @@ export const datacenters: Datacenter[] = [
     latency: { en: "32 ms APAC average", zh: "32 毫秒 · 亚太平均" },
     powerMix: { en: "Grid + hydro", zh: "电网 + 水电" },
   },
+  {
+    id: "usa",
+    name: { en: "USA", zh: "美国" },
+    region: { en: "North America", zh: "北美" },
+    country: { en: "United States", zh: "美国" },
+    coordinates: [-122.4194, 37.7749],
+    hashrate: "1.8 PH/s",
+    nodeCount: 15,
+    status: "observing",
+    tags: [
+      { en: "Edge Node", zh: "边缘节点" },
+      { en: "West Coast", zh: "西海岸" },
+      { en: "Observing", zh: "观察中" },
+    ],
+    notes: {
+      en: "San Francisco edge node for West Coast latency optimization and cross-Pacific relay.",
+      zh: "旧金山边缘节点，优化西海岸延迟与跨太平洋中继。",
+    },
+    latency: { en: "65 ms APAC average", zh: "65 毫秒 · 亚太平均" },
+    powerMix: { en: "Green grid", zh: "绿色电网" },
+  },
 ];
 
 export const networkSummary = {
-  totalHashrate: "61.2 PH/s",
-  totalNodes: 578,
-  activeRegions: 10,
+  totalHashrate: "65.8 PH/s",
+  totalNodes: 615,
+  activeRegions: 12,
   publicSurfaces: 4,
 };
 

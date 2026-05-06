@@ -127,12 +127,16 @@ function generateServers(dcId: string, count: number): Server[] {
 }
 
 export const serversByDatacenter: Record<string, Server[]> = {
-  yichang: generateServers("yichang", 18),
-  shiyan: generateServers("shiyan", 14),
-  kelamayi: generateServers("kelamayi", 20),
+  hubei: generateServers("hubei", 18),
+  shandong: generateServers("shandong", 14),
+  xinjiang: generateServers("xinjiang", 20),
   singapore: generateServers("singapore", 16),
   "hong-kong": generateServers("hong-kong", 15),
   thailand: generateServers("thailand", 13),
-  chengdu: generateServers("chengdu", 19),
-  hangzhou: generateServers("hangzhou", 17),
+  sichuan: generateServers("sichuan", 19),
+  zhejiang: generateServers("zhejiang", 17),
+  germany: generateServers("germany", 12),
+  france: generateServers("france", 10),
+  usa: generateServers("usa", 8),
+  malaysia: generateServers("malaysia", 9),
 };

@@ -20,7 +20,7 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
     code: "LATENCY_SPIKE",
     message: {
       en: "Zhejiang edge ingress latency rose above baseline and auto-routed to backup mesh.",
-      zh: "杭州边缘入口延迟高于基线，系统已自动切换到备用链路。",
+      zh: "浙江边缘入口延迟高于基线，系统已自动切换到备用链路。",
     },
   },
   {
@@ -28,7 +28,7 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
     code: "POWER_BAND",
     message: {
       en: "Xinjiang backbone entered constrained power band. Capacity throttling policy engaged.",
-      zh: "克拉玛依骨干进入功耗约束带，已启用容量节流策略。",
+      zh: "新疆骨干进入功耗约束带，已启用容量节流策略。",
     },
   },
   {
@@ -44,7 +44,7 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
     code: "ROUTE_SHIFT",
     message: {
       en: "Thailand relay accepted overflow traffic from Hong Kong public route mesh.",
-      zh: "曼谷中继已承接来自香港公网链路的溢出流量。",
+      zh: "泰国中继已承接来自香港公网链路的溢出流量。",
     },
   },
   {
@@ -60,7 +60,7 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
     code: "COOLING_DRIFT",
     message: {
       en: "Hubei compute cluster cooling delta widened. Thermal balancing policy raised fan curve.",
-      zh: "宜昌算力集群冷却温差扩大，系统已提升散热曲线。",
+      zh: "湖北算力集群冷却温差扩大，系统已提升散热曲线。",
     },
   },
   {
@@ -84,7 +84,7 @@ const eventPool: Omit<CommandCenterEvent, "id" | "timestamp">[] = [
     code: "STORAGE_REBUILD",
     message: {
       en: "Sichuan storage shard entered rebuild mode after integrity threshold alert.",
-      zh: "成都存储分片因完整性阈值告警进入重建模式。",
+      zh: "四川存储分片因完整性阈值告警进入重建模式。",
     },
   },
   {

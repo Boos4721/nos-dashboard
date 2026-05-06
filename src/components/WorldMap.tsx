@@ -185,7 +185,7 @@ export function WorldMap({
                 {locale === "zh" ? "节点" : "NODES"}: {datacenters.length}
               </span>
               <span className="font-mono" style={{ fontSize: fs.badge, color: "var(--muted)" }}>
-                {locale === "zh" ? "区域" : "REGIONS"}: 12
+                {locale === "zh" ? "区域" : "REGIONS"}: {datacenters.length}
               </span>
             </div>
           )}
@@ -507,7 +507,7 @@ export function WorldMap({
             { l: M.pulse, v: `${tele.pulseLatencyMs} ms`, c: "var(--cyan)" },
             { l: M.arc, v: `${tele.signalArc}%`, c: "var(--heading)" },
           ].map(item => (
-            <div key={t(item.l, locale)}
+            <div key={item.l.en}
               className="transition-colors"
               style={{
                 padding: isMobile ? "10px" : isTablet ? "12px 16px" : "16px 20px",
