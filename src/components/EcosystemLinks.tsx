@@ -13,11 +13,11 @@ export function EcosystemLinks({ locale }: { locale: Locale }) {
     <section id="products" ref={ref as React.RefObject<HTMLElement>} className={`mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24 scroll-reveal ${inView ? "in-view" : ""}`}>
       {/* Label row */}
       <div className="flex items-center gap-4 mb-12">
-        <p className="font-mono text-[10px] font-bold uppercase tracking-[0.3em]" style={{ color: "var(--accent-bright)" }}>
+        <p className="font-mono text-[13px] font-bold uppercase tracking-[0.3em]" style={{ color: "var(--accent-bright)" }}>
           {sectionLabel}
         </p>
         <div className="h-px flex-1" style={{ background: "var(--border)" }} />
-        <span className="font-mono text-[9px]" style={{ color: "var(--muted)" }}>
+        <span className="font-mono text-[12px]" style={{ color: "var(--muted)" }}>
           {gatewayLabel}
         </span>
       </div>
@@ -35,19 +35,19 @@ export function EcosystemLinks({ locale }: { locale: Locale }) {
             target="_blank"
           >
             <div className="flex items-center justify-between mb-8">
-              <span className="font-mono text-[10px]" style={{ color: "var(--muted)" }}>[{String(index + 1).padStart(2, '0')}]</span>
-              <span className="text-[12px] opacity-20 group-hover:opacity-100 group-hover:text-[var(--accent-bright)] transition-all">◈</span>
+              <span className="font-mono text-[13px]" style={{ color: "var(--muted)" }}>[{String(index + 1).padStart(2, '0')}]</span>
+              <span className="text-[15px] opacity-20 group-hover:opacity-100 group-hover:text-[var(--accent-bright)] transition-all">◈</span>
             </div>
 
-            <h3 className="font-mono text-[13px] font-bold mb-2" style={{ color: "var(--heading)" }}>{locale === "zh" ? t(product.name, locale) : t(product.name, locale).toUpperCase()}</h3>
-            <p className="font-mono text-[9px] mb-4" style={{ color: "var(--accent-bright)" }}>{locale === "zh" ? t(product.label, locale) : t(product.label, locale).toUpperCase()}</p>
+            <h3 className="font-mono text-[16px] font-bold mb-2" style={{ color: "var(--heading)" }}>{locale === "zh" ? t(product.name, locale) : t(product.name, locale).toUpperCase()}</h3>
+            <p className="font-mono text-[12px] mb-4" style={{ color: "var(--accent-bright)" }}>{locale === "zh" ? t(product.label, locale) : t(product.label, locale).toUpperCase()}</p>
 
             <p className="text-[13px] leading-[1.6] mb-6 flex-1" style={{ color: "var(--body)" }}>
               {t(product.summary, locale)}
             </p>
 
             <div className="pt-4 border-t" style={{ borderColor: "var(--border)" }}>
-              <span className="font-mono text-[9px] group-hover:text-[var(--heading)] transition-colors" style={{ color: "var(--muted)" }}>{locale === "zh" ? "立即前往 →" : "ACCESS_ENDPOINT →"}</span>
+              <span className="font-mono text-[12px] group-hover:text-[var(--heading)] transition-colors" style={{ color: "var(--muted)" }}>{locale === "zh" ? "立即前往 →" : "ACCESS_ENDPOINT →"}</span>
             </div>
           </a>
         ))}

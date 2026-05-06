@@ -234,17 +234,17 @@ export function LoadingOverlay({ ready, maxVisibleMs = 5000 }: LoadingOverlayPro
       <div className="relative z-10 flex w-full max-w-6xl flex-col items-center px-4 sm:px-6">
         <div className={`mb-6 flex w-full flex-col gap-3 transition-all duration-[1200ms] delay-200 sm:mb-8 sm:flex-row sm:items-center sm:justify-between ${entered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
           <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
-            <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.42em] uppercase" style={{ color: "var(--muted)" }}>
+            <span className="text-[11px] sm:text-[13px] font-bold tracking-[0.42em] uppercase" style={{ color: "var(--muted)" }}>
               TYSJ
             </span>
             <div className="h-px w-6 sm:w-10" style={{ background: isLight ? "rgba(10,10,20,0.1)" : "rgba(255,255,255,0.06)" }} />
-            <span className="truncate text-[7px] sm:text-[9px] tracking-[0.14em] sm:tracking-[0.18em] uppercase" style={{ color: "var(--muted)" }}>
+            <span className="truncate text-[9px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.18em] uppercase" style={{ color: "var(--muted)" }}>
               {copy[locale].version}
             </span>
           </div>
           <div className="flex flex-col gap-1 self-start text-left sm:items-end sm:self-auto sm:text-right">
-            <span className="text-[7px] sm:text-[8px] tracking-[0.15em] uppercase" style={{ color: "var(--muted)" }}>{copy[locale].fabric}</span>
-            <span className="text-[7px] sm:text-[8px] tracking-[0.15em] uppercase" style={{ color: "var(--muted)" }}>{copy[locale].core}</span>
+            <span className="text-[9px] sm:text-[11px] tracking-[0.15em] uppercase" style={{ color: "var(--muted)" }}>{copy[locale].fabric}</span>
+            <span className="text-[9px] sm:text-[11px] tracking-[0.15em] uppercase" style={{ color: "var(--muted)" }}>{copy[locale].core}</span>
           </div>
         </div>
 
@@ -253,20 +253,20 @@ export function LoadingOverlay({ ready, maxVisibleMs = 5000 }: LoadingOverlayPro
             <div className="max-w-2xl">
               <div className="mb-4 inline-flex max-w-full items-center gap-2.5 rounded-full border px-3 py-2 sm:gap-3 sm:px-4" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)" }}>
                 <span className="h-2 w-2 rounded-full bg-[var(--cyan)]" style={{ boxShadow: "0 0 14px rgba(34,211,238,0.5)" }} />
-                <span className="truncate text-[8px] sm:text-[10px] tracking-[0.18em] sm:tracking-[0.28em] uppercase" style={{ color: "var(--accent-bright)" }}>
+                <span className="truncate text-[10px] sm:text-[13px] tracking-[0.18em] sm:tracking-[0.28em] uppercase" style={{ color: "var(--accent-bright)" }}>
                   {copy[locale].mode}
                 </span>
               </div>
 
-              <h2 className="text-[clamp(1.7rem,9vw,4.8rem)] font-extralight leading-[0.96] tracking-[-0.05em] sm:tracking-[-0.06em]" style={{ color: "var(--heading)" }}>
+              <h2 className="text-[clamp(2rem,10vw,5.5rem)] font-extralight leading-[0.96] tracking-[-0.05em] sm:tracking-[-0.06em]" style={{ color: "var(--heading)" }}>
                 {copy[locale].title}
               </h2>
 
               <div className="mt-4 flex flex-col items-start gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
-                <span className="rounded-full border px-3 py-1 font-mono text-[8px] sm:text-[9px] tracking-[0.18em] sm:tracking-[0.22em] uppercase" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)", color: "var(--cyan)" }}>
+                <span className="rounded-full border px-3 py-1 font-mono text-[10px] sm:text-[12px] tracking-[0.18em] sm:tracking-[0.22em] uppercase" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)", color: "var(--cyan)" }}>
                   {stageLabel}
                 </span>
-                <span className="text-[8px] sm:text-[9px] tracking-[0.12em] sm:tracking-[0.18em] uppercase" style={{ color: "var(--muted)" }}>
+                <span className="text-[10px] sm:text-[12px] tracking-[0.12em] sm:tracking-[0.18em] uppercase" style={{ color: "var(--muted)" }}>
                   {copy[locale].protocol}
                 </span>
               </div>
@@ -295,7 +295,7 @@ export function LoadingOverlay({ ready, maxVisibleMs = 5000 }: LoadingOverlayPro
                           transform: pulsing ? "scale(1.35)" : "scale(1)",
                         }}
                       />
-                      <span className="text-[9px] leading-5 sm:text-[11px] sm:tracking-[0.18em] uppercase" style={{ color: active ? "var(--heading)" : "var(--muted)" }}>
+                      <span className="text-[12px] leading-5 sm:text-[14px] sm:tracking-[0.18em] uppercase" style={{ color: active ? "var(--heading)" : "var(--muted)" }}>
                         {line}
                       </span>
                     </div>
@@ -370,7 +370,7 @@ export function LoadingOverlay({ ready, maxVisibleMs = 5000 }: LoadingOverlayPro
                 <span className="text-[clamp(2rem,12vw,4.6rem)] font-extralight leading-none tracking-[-0.05em] tabular-nums" style={{ color: "var(--heading)" }}>
                   {progressPct.toString().padStart(2, "0")}
                 </span>
-                <span className="mt-2 text-[8px] sm:text-[9px] tracking-[0.18em] sm:tracking-[0.28em] uppercase" style={{ color: "var(--muted)" }}>
+                <span className="mt-2 text-[10px] sm:text-[12px] tracking-[0.18em] sm:tracking-[0.28em] uppercase" style={{ color: "var(--muted)" }}>
                   {copy[locale].percent}
                 </span>
               </div>
@@ -381,7 +381,7 @@ export function LoadingOverlay({ ready, maxVisibleMs = 5000 }: LoadingOverlayPro
         </div>
 
         <div className={`mt-8 flex w-full flex-col items-start gap-4 transition-all duration-[1200ms] delay-[1000ms] sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:gap-6 ${entered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          <span className="text-[7px] sm:text-[8px] tracking-[0.12em] sm:tracking-[0.16em] uppercase" style={{ color: "var(--muted)" }}>
+          <span className="text-[9px] sm:text-[11px] tracking-[0.12em] sm:tracking-[0.16em] uppercase" style={{ color: "var(--muted)" }}>
             {copy[locale].footer}
           </span>
 
@@ -394,10 +394,10 @@ export function LoadingOverlay({ ready, maxVisibleMs = 5000 }: LoadingOverlayPro
               color: "var(--body)",
             }}
           >
-            <span className="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase transition-colors group-hover:text-[var(--accent-bright)]">
+            <span className="text-[11px] sm:text-[13px] tracking-[0.2em] uppercase transition-colors group-hover:text-[var(--accent-bright)]">
               {copy[locale].skip}
             </span>
-            <span className="text-[9px] sm:text-[10px] transition-colors group-hover:text-[var(--accent-bright)]">→</span>
+            <span className="text-[11px] sm:text-[13px] transition-colors group-hover:text-[var(--accent-bright)]">→</span>
           </button>
         </div>
       </div>

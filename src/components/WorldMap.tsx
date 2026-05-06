@@ -137,17 +137,17 @@ export function WorldMap({
 
   /* ── Fluid font sizes ── */
   const fs = {
-    title: isMobile ? 14 : isTablet ? 16 : 18,
-    badge: isMobile ? 11 : 12,
-    label: isMobile ? 10 : 11,
-    overlayTitle: isMobile ? 16 : isTablet ? 18 : 22,
-    overlaySub: isMobile ? 11 : 12,
-    overlayVal: isMobile ? 14 : isTablet ? 15 : 16,
-    cardTitle: isMobile ? 13 : isTablet ? 14 : 15,
-    cardLabel: isMobile ? 10 : 11,
-    cardVal: isMobile ? 16 : isTablet ? 18 : 20,
-    teleLabel: isMobile ? 11 : 12,
-    teleVal: isMobile ? 24 : isTablet ? 28 : 32,
+    title: isMobile ? 17 : isTablet ? 20 : 22,
+    badge: isMobile ? 13 : 14,
+    label: isMobile ? 12 : 13,
+    overlayTitle: isMobile ? 19 : isTablet ? 22 : 26,
+    overlaySub: isMobile ? 13 : 14,
+    overlayVal: isMobile ? 17 : isTablet ? 19 : 20,
+    cardTitle: isMobile ? 16 : isTablet ? 17 : 19,
+    cardLabel: isMobile ? 12 : 13,
+    cardVal: isMobile ? 19 : isTablet ? 22 : 24,
+    teleLabel: isMobile ? 13 : 15,
+    teleVal: isMobile ? 28 : isTablet ? 34 : 38,
   };
 
   /* ── Marker sizing ── */
@@ -208,7 +208,7 @@ export function WorldMap({
         {isMobile && (
           <div className="pointer-events-none absolute right-3 top-3 z-20">
             <span className="glass-badge rounded-full border px-2 py-0.5 font-mono tracking-[0.16em] backdrop-blur-md"
-              style={{ fontSize: 13, color: "var(--accent-bright)" }}>
+              style={{ fontSize: 15, color: "var(--accent-bright)" }}>
               ● LIVE
             </span>
           </div>
@@ -347,7 +347,7 @@ export function WorldMap({
                 {active && !isMobile && (
                   <text x={n.x + 10} y={n.y + 3} fill="var(--heading)"
                     className="font-mono font-bold tracking-tighter"
-                    style={{ fontSize: "14px", textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>
+                    style={{ fontSize: "17px", textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>
                     {t(n.name, locale)}
                   </text>
                 )}
@@ -384,7 +384,7 @@ export function WorldMap({
                 style={{ fontSize: fs.overlayVal, color: "var(--accent-bright)" }}>
                 {selDyn?.hashrate ?? sel.hashrate}
               </span>
-              <span className="font-mono" style={{ fontSize: 12, color: "var(--muted)" }}>·</span>
+              <span className="font-mono" style={{ fontSize: 14, color: "var(--muted)" }}>·</span>
               <span className="font-mono"
                 style={{ fontSize: fs.overlayVal, color: "var(--cyan)" }}>
                 {t(selDyn?.latency ?? sel.latency, locale)}
@@ -425,13 +425,13 @@ export function WorldMap({
                   </p>
                   <div className="mt-1 flex gap-3">
                     <div>
-                      <p className="font-mono" style={{ fontSize: 10, color: "var(--muted)" }}>{t(M.hr, locale)}</p>
+                      <p className="font-mono" style={{ fontSize: 14, color: "var(--muted)" }}>{t(M.hr, locale)}</p>
                       <p className="font-mono font-medium" style={{ fontSize: fs.cardVal, color: "var(--heading)" }}>
                         {d?.hashrate ?? dc.hashrate}
                       </p>
                     </div>
                     <div>
-                      <p className="font-mono" style={{ fontSize: 10, color: "var(--muted)" }}>{t(M.nodes, locale)}</p>
+                      <p className="font-mono" style={{ fontSize: 14, color: "var(--muted)" }}>{t(M.nodes, locale)}</p>
                       <p className="font-mono font-medium" style={{ fontSize: fs.cardVal, color: "var(--heading)" }}>
                         {d?.nodeCount ?? dc.nodeCount}
                       </p>
