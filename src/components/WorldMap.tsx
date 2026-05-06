@@ -18,15 +18,15 @@ interface RegionLine { from: DcId; to: DcId }
 
 /* ── Route topology ────────────────────────────────────────────── */
 const regionLines: RegionLine[] = [
-  { from: "kelamayi", to: "yichang" },
-  { from: "shiyan", to: "hong-kong" },
-  { from: "yichang", to: "singapore" },
+  { from: "xinjiang", to: "hubei" },
+  { from: "shandong", to: "hong-kong" },
+  { from: "hubei", to: "singapore" },
   { from: "hong-kong", to: "bangkok" },
   { from: "singapore", to: "bangkok" },
-  { from: "yichang", to: "hangzhou" },
-  { from: "hangzhou", to: "hong-kong" },
-  { from: "yichang", to: "chengdu" },
-  { from: "chengdu", to: "kelamayi" },
+  { from: "hubei", to: "zhejiang" },
+  { from: "zhejiang", to: "hong-kong" },
+  { from: "hubei", to: "sichuan" },
+  { from: "sichuan", to: "xinjiang" },
 ];
 
 /* ── Copy ──────────────────────────────────────────────────────── */
@@ -132,17 +132,17 @@ export function WorldMap({
 
   /* ── Fluid font sizes ── */
   const fs = {
-    title: isMobile ? 10 : isTablet ? 11 : 12,
-    badge: isMobile ? 7 : 8,
-    label: isMobile ? 6 : 7,
-    overlayTitle: isMobile ? 10 : 12,
-    overlaySub: isMobile ? 7 : 8,
-    overlayVal: isMobile ? 9 : 10,
-    cardTitle: isMobile ? 8 : 9,
-    cardLabel: isMobile ? 6 : 7,
-    cardVal: isMobile ? 10 : 12,
-    teleLabel: isMobile ? 7 : 8,
-    teleVal: isMobile ? 16 : isTablet ? 18 : 20,
+    title: isMobile ? 12 : isTablet ? 14 : 16,
+    badge: isMobile ? 9 : 10,
+    label: isMobile ? 8 : 9,
+    overlayTitle: isMobile ? 14 : isTablet ? 16 : 18,
+    overlaySub: isMobile ? 9 : 10,
+    overlayVal: isMobile ? 12 : isTablet ? 13 : 14,
+    cardTitle: isMobile ? 11 : isTablet ? 12 : 13,
+    cardLabel: isMobile ? 8 : 9,
+    cardVal: isMobile ? 13 : isTablet ? 15 : 16,
+    teleLabel: isMobile ? 9 : 10,
+    teleVal: isMobile ? 20 : isTablet ? 24 : 28,
   };
 
   /* ── Marker sizing ── */
@@ -207,7 +207,7 @@ export function WorldMap({
           <div className="pointer-events-none absolute right-3 top-3 z-20">
             <span className="rounded-full border px-2 py-0.5 font-mono tracking-[0.16em]"
               style={{
-                fontSize: 7, borderColor: "rgba(255,255,255,0.08)",
+                fontSize: 10, borderColor: "rgba(255,255,255,0.08)",
                 background: "rgba(0,0,0,0.5)", color: "var(--accent-bright)",
                 backdropFilter: "blur(4px)",
               }}>
@@ -349,7 +349,7 @@ export function WorldMap({
                 {active && !isMobile && (
                   <text x={n.x + 10} y={n.y + 3} fill="var(--heading)"
                     className="font-mono font-bold tracking-tighter"
-                    style={{ fontSize: "9px", textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>
+                    style={{ fontSize: "12px", textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>
                     {t(n.name, locale)}
                   </text>
                 )}
@@ -388,7 +388,7 @@ export function WorldMap({
                 style={{ fontSize: fs.overlayVal, color: "var(--accent-bright)" }}>
                 {selDyn?.hashrate ?? sel.hashrate}
               </span>
-              <span className="font-mono" style={{ fontSize: 7, color: "var(--muted)" }}>·</span>
+              <span className="font-mono" style={{ fontSize: 10, color: "var(--muted)" }}>·</span>
               <span className="font-mono"
                 style={{ fontSize: fs.overlayVal, color: "var(--cyan)" }}>
                 {t(selDyn?.latency ?? sel.latency, locale)}
@@ -429,13 +429,13 @@ export function WorldMap({
                   </p>
                   <div className="mt-1 flex gap-3">
                     <div>
-                      <p className="font-mono" style={{ fontSize: 5, color: "var(--muted)" }}>{t(M.hr, locale)}</p>
+                      <p className="font-mono" style={{ fontSize: 8, color: "var(--muted)" }}>{t(M.hr, locale)}</p>
                       <p className="font-mono font-medium" style={{ fontSize: fs.cardVal, color: "var(--heading)" }}>
                         {d?.hashrate ?? dc.hashrate}
                       </p>
                     </div>
                     <div>
-                      <p className="font-mono" style={{ fontSize: 5, color: "var(--muted)" }}>{t(M.nodes, locale)}</p>
+                      <p className="font-mono" style={{ fontSize: 8, color: "var(--muted)" }}>{t(M.nodes, locale)}</p>
                       <p className="font-mono font-medium" style={{ fontSize: fs.cardVal, color: "var(--heading)" }}>
                         {d?.nodeCount ?? dc.nodeCount}
                       </p>
