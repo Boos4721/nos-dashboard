@@ -31,6 +31,7 @@ const regionLines: RegionLine[] = [
   { from: "germany", to: "france" },
   { from: "singapore", to: "germany" },
   { from: "singapore", to: "malaysia" },
+  { from: "germany", to: "usa" },
 ];
 
 /* ── Copy ──────────────────────────────────────────────────────── */
@@ -184,7 +185,7 @@ export function WorldMap({
                 {locale === "zh" ? "节点" : "NODES"}: {datacenters.length}
               </span>
               <span className="font-mono" style={{ fontSize: fs.badge, color: "var(--muted)" }}>
-                {locale === "zh" ? "区域" : "REGIONS"}: 10
+                {locale === "zh" ? "区域" : "REGIONS"}: 12
               </span>
             </div>
           )}

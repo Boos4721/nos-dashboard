@@ -300,6 +300,7 @@ const regionLatencyRange: Record<string, [number, number]> = {
   zhejiang: [8, 13],
   germany: [10, 16],
   france: [13, 19],
+  usa: [60, 75],
 };
 
 const regionHashrateVariance: Record<string, number> = {
@@ -314,6 +315,7 @@ const regionHashrateVariance: Record<string, number> = {
   zhejiang: 0.38,
   germany: 0.35,
   france: 0.22,
+  usa: 0.15,
 };
 
 const regionNodeVariance: Record<string, number> = {
@@ -328,6 +330,7 @@ const regionNodeVariance: Record<string, number> = {
   zhejiang: 3,
   germany: 3,
   france: 2,
+  usa: 1,
 };
 
 function seededJitter(seed: string, bucketMs: number) {
