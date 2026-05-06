@@ -69,7 +69,7 @@ export function Header({
                 className="font-mono text-[13px] font-semibold uppercase tracking-[0.28em]"
                 style={{ color: "var(--heading)", textShadow: "0 0 18px rgba(109,93,252,0.32)" }}
               >
-                TYSJ
+                NOS
               </span>
             </div>
           </div>

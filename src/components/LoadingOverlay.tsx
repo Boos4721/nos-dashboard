@@ -235,7 +235,7 @@ export function LoadingOverlay({ ready, maxVisibleMs = 5000 }: LoadingOverlayPro
         <div className={`mb-6 flex w-full flex-col gap-3 transition-all duration-[1200ms] delay-200 sm:mb-8 sm:flex-row sm:items-center sm:justify-between ${entered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
           <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
             <span className="text-[11px] sm:text-[13px] font-bold tracking-[0.42em] uppercase" style={{ color: "var(--muted)" }}>
-              TYSJ
+              NOS
             </span>
             <div className="h-px w-6 sm:w-10" style={{ background: isLight ? "rgba(10,10,20,0.1)" : "rgba(255,255,255,0.06)" }} />
             <span className="truncate text-[9px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.18em] uppercase" style={{ color: "var(--muted)" }}>
